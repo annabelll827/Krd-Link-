@@ -27,16 +27,6 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #38bdf8;
-    margin-bottom: 20px;
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-}
-
 h1 {
     font-size: 1.8rem;
     font-weight: 700;
@@ -50,57 +40,41 @@ p.bio {
     margin-bottom: 30px;
 }
 
-.links-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.link-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 14px 20px;
-    border-radius: 14px;
-    color: #ffffff;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 600;
-}
-
-.link-card:hover {
-    background: rgba(56, 189, 248, 0.15);
-    border-color: #38bdf8;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.1);
-}
-
-.link-card i.left-icon {
-    font-size: 1.2rem;
-    color: #38bdf8;
-}
-
-.link-card span {
-    flex-grow: 1;
+.form-group {
+    margin-bottom: 15px;
     text-align: right;
-    margin-right: 15px;
 }
 
-.link-card i.arrow {
-    color: #64748b;
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
     font-size: 0.9rem;
-    transition: transform 0.2s;
+    color: #cbd5e1;
 }
 
-.link-card:hover i.arrow {
-    transform: translateX(-4px);
-    color: #38bdf8;
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
 }
 
-footer {
-    margin-top: 40px;
-    font-size: 0.8rem;
-    color: #64748b;
+.btn {
+    width: 100%;
+    padding: 12px;
+    background: #38bdf8;
+    color: #0f172a;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #0ea5e9;
 }
