@@ -64,27 +64,6 @@
             box-sizing: border-box;
         }
 
-        .welcome-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .welcome-box h3 {
-            margin: 0 0 5px 0;
-            color: #a855f7;
-            font-size: 1.1rem;
-        }
-
-        .welcome-box p {
-            margin: 0;
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-
         .section-title {
             font-size: 0.95rem;
             font-weight: 600;
@@ -308,11 +287,6 @@
     </header>
 
     <div class="dashboard-container">
-        <div class="welcome-box">
-            <h3 id="displayUsername">بەکارهێنەر</h3>
-            <p>بەخێر هاتیت بۆ پڕۆفایلەکەت</p>
-        </div>
-
         <div class="section-title">زیادکردنی لینکێکی نوێ</div>
         <div class="form-group">
             <input type="text" id="linkTitle" placeholder="ناونیشانی لینک (بۆ نموونە: تیلیگرام)">
@@ -343,26 +317,6 @@
                     <option value="ku">کوردی (Kurdish)</option>
                     <option value="en">English</option>
                 </select>
-            </div>
-
-            <!-- بەشی Overview -->
-            <div class="menu-section-label">
-                <span>Overview</span>
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-            </div>
-            <div class="menu-items-list">
-                <div class="menu-item active">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                    <span>Overview</span>
-                </div>
-                <div class="menu-item">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    <span>Badge Overview</span>
-                </div>
-                <div class="menu-item">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    <span>Analysis</span>
-                </div>
             </div>
 
             <!-- بەشی SOCIAL -->
@@ -401,7 +355,6 @@
                 window.location.href = 'index.html';
                 return;
             }
-            document.getElementById('displayUsername').innerText = currentUser;
         });
 
         function logout() {
