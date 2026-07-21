@@ -127,7 +127,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .stats-icon-box {
@@ -154,43 +154,13 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            margin-bottom: 20px;
         }
 
         .stats-number {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: #ffffff;
             line-height: 1;
-        }
-
-        .stats-bottom-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .stats-external-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            width: 38px;
-            height: 38px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-
-        .stats-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 6px 16px;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            font-weight: 500;
         }
 
         /* --- دیزاین مێنیووی تەنیشت (Sidebar Menu Modal) --- */
@@ -363,7 +333,7 @@
             <div class="profile-username-display" id="displayUsername">username</div>
         </div>
 
-        <!-- کارتی نوێی Profail Viuw -->
+        <!-- کارتی Profail Viuw (بێ دوگمە لادراوەکان و ژمارەی بەکارهێنەر) -->
         <div class="stats-card">
             <div class="stats-top-row">
                 <div class="stats-icon-box">
@@ -376,16 +346,7 @@
             </div>
 
             <div class="stats-number-row">
-                <div class="stats-number">37</div>
-            </div>
-
-            <div class="stats-bottom-row">
-                <div class="stats-external-btn">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
-                </div>
-                <div class="stats-badge">All time</div>
+                <div class="stats-number" id="profileViewsCount">0</div>
             </div>
         </div>
     </div>
@@ -464,7 +425,20 @@
                 window.location.href = 'index.html';
                 return;
             }
+            
+            // پیشاندانی ناوی بەکارهێنەر
             document.getElementById('displayUsername').innerText = currentUser;
+
+            // سیستەمی هەژمارکردنی سەردانی پڕۆفایل بۆ هەر ئەکاونتێک بە جیا
+            const viewKey = 'profile_views_' + currentUser;
+            let currentViews = parseInt(localStorage.getItem(viewKey)) || 37;
+            
+            // زیادکردنی ژمارەیەک کاتێک پڕۆفایلەکە دەکرێتەوە
+            currentViews += 1;
+            localStorage.setItem(viewKey, currentViews);
+
+            // نیشاندانی ژمارەکە لە خانەکەدا
+            document.getElementById('profileViewsCount').innerText = currentViews;
         });
 
         function toggleMenu() {
