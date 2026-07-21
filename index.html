@@ -7,6 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .login-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .login-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
@@ -16,42 +31,31 @@
         <h1>Krd Link</h1>
         <p class="bio">هەموو لینک و بەرنامەکانت لە یەک شوێن.</p>
 
-        <!-- لیستی لینکەکان کە لێرەدا بە شێوازی خۆکار دەردەکەون -->
+        <!-- لیستی لینکە سەرەکییەکان -->
         <div class="links-list" id="linksContainer">
-            <!-- لینکەکان لێرەدا بە جافااسکریپت دادەنرێن -->
+            <a href="https://discord.com" target="_blank" class="link-card">
+                <i class="fa-solid fa-chevron-left arrow"></i>
+                <span>سێرڤەری دیسکۆرد</span>
+                <i class="fa-brands fa-discord left-icon" style="color: #5865F2;"></i>
+            </a>
+            <a href="https://github.com" target="_blank" class="link-card">
+                <i class="fa-solid fa-chevron-left arrow"></i>
+                <span>پڕۆژەکانی گیتهەب</span>
+                <i class="fa-brands fa-github left-icon"></i>
+            </a>
+            <a href="https://t.me" target="_blank" class="link-card">
+                <i class="fa-solid fa-chevron-left arrow"></i>
+                <span>کەناڵی تێلیگرام</span>
+                <i class="fa-brands fa-telegram left-icon" style="color: #24A1DE;"></i>
+            </a>
         </div>
+
+        <a href="login.html" class="login-link"><i class="fa-solid fa-lock" style="margin-left: 5px;"></i>چوونە ژوورەوە بۆ داشبۆرد</a>
 
         <footer>
             Krd Link &copy; 2026
         </footer>
     </div>
-
-    <script>
-        // خوێندنەوەی لینکەکان لە LocalStorage
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedLinks = JSON.parse(localStorage.getItem('krd_links')) || [
-                { name: "سێرڤەری دیسکۆرد", url: "https://discord.com", icon: "fa-discord" },
-                { name: "پڕۆژەکانی گیتهەب", url: "https://github.com", icon: "fa-github" },
-                { name: "کەناڵی تێلیگرام", url: "https://t.me", icon: "fa-telegram" }
-            ];
-
-            const container = document.getElementById('linksContainer');
-            container.innerHTML = '';
-
-            savedLinks.forEach(link => {
-                const a = document.createElement('a');
-                a.href = link.url;
-                a.target = "_blank";
-                a.className = "link-card";
-                a.innerHTML = `
-                    <i class="fa-solid fa-chevron-left arrow"></i>
-                    <span>${link.name}</span>
-                    <i class="fa-brands ${link.icon || 'fa-link'} left-icon"></i>
-                `;
-                container.appendChild(a);
-            });
-        });
-    </script>
 
 </body>
 </html>
