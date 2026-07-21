@@ -64,44 +64,6 @@
             box-sizing: border-box;
         }
 
-        .welcome-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .welcome-box h3 {
-            margin: 0 0 5px 0;
-            color: #a855f7;
-            font-size: 1.1rem;
-        }
-
-        .welcome-box p {
-            margin: 0;
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-
-        .logout-section {
-            margin-top: 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 15px;
-        }
-
-        .logout-link {
-            color: #f87171;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: 'Vazirmatn', sans-serif;
-            font-size: 0.9rem;
-            text-decoration: underline;
-        }
-
         /* --- دیزاین مێنیووی تەنیشت (Sidebar Menu Modal) --- */
         .menu-overlay {
             position: fixed;
@@ -258,14 +220,7 @@
     </header>
 
     <div class="dashboard-container">
-        <div class="welcome-box">
-            <h3 id="displayUsername">بەکارهێنەر</h3>
-            <p>بەخێر هاتیت بۆ پڕۆفایلەکەت</p>
-        </div>
-
-        <div class="logout-section">
-            <button class="logout-link" onclick="logout()">چوونە دەرەوە لە هەژمار</button>
-        </div>
+        <!-- ناوەڕۆک لێرە دەتوانێت دابنرێت ئەگەر پێویست بکات -->
     </div>
 
     <!-- پەنجەرەی مێنیووی تەنیشت (Sidebar Menu Modal) -->
@@ -342,13 +297,7 @@
                 window.location.href = 'index.html';
                 return;
             }
-            document.getElementById('displayUsername').innerText = currentUser;
         });
-
-        function logout() {
-            localStorage.removeItem('current_user');
-            window.location.href = 'index.html';
-        }
 
         function toggleMenu() {
             const overlay = document.getElementById('menuOverlay');
