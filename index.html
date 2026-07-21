@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krd Link - چوونە ژوورەوە / تۆماربوون</title>
+    <title>Krd Link - چوونە ژوورەوە و تۆماربوون</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1 id="formTitle">چوونە ژوورەوە</h1>
-        <p class="bio" id="formSubtitle">بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە</p>
+        <h1 id="formTitle">دروستکردنی ئەکاونت</h1>
+        <p class="bio" id="formSubtitle">تۆماربکە بۆ دەستپێکردن</p>
 
         <div class="form-group">
             <label>ناوی بەکارهێنەر (Username)</label>
-            <input type="text" id="username" placeholder="ناوی بەکارهێنەر بنووسە...">
+            <input type="text" id="username" placeholder="ناوی بەکارهێنەر...">
         </div>
 
         <div class="form-group">
@@ -23,17 +23,17 @@
             <input type="password" id="password" placeholder="••••••••">
         </div>
 
-        <button class="btn" id="actionBtn" onclick="handleAuth()">چوونە ژوورەوە</button>
+        <button class="btn" id="actionBtn" onclick="handleAuth()">تۆمارکردن</button>
         <div id="errorMsg" class="error-msg"></div>
 
         <div class="switch-text">
-            <span id="switchQuestion">هەژمارت نییە؟</span> 
-            <a id="switchBtn" onclick="toggleMode()">دروستکردنی ئەکاونت</a>
+            <span id="switchQuestion">هەژمارت هەیە؟</span> 
+            <a id="switchBtn" onclick="toggleMode()">چوونە ژوورەوە</a>
         </div>
     </div>
 
     <script>
-        // پشکنین ئەگەر پێشتر یۆزەر لۆگینی کردبێت، ڕاستەوخۆ بچێتە داشبۆرد
+        // پشکنین ئەگەر پێشتر لۆگینی کردبێت
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('current_user');
             if (currentUser) {
@@ -41,7 +41,8 @@
             }
         });
 
-        let isSignup = false;
+        // لێرەدا لە سەرەتادا دەکەینە دۆخی دروستکردنی ئەکاونت (Signup)
+        let isSignup = true;
 
         function toggleMode() {
             isSignup = !isSignup;
@@ -56,13 +57,13 @@
 
             if (isSignup) {
                 title.innerText = "دروستکردنی ئەکاونت";
-                subtitle.innerText = "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە";
+                subtitle.innerText = "تۆماربکە بۆ دەستپێکردن";
                 btn.innerText = "تۆمارکردن";
                 question.innerText = "هەژمارت هەیە؟";
                 switchBtn.innerText = "چوونە ژوورەوە";
             } else {
                 title.innerText = "چوونە ژوورەوە";
-                subtitle.innerText = "بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە";
+                subtitle.innerText = "بۆ چوونە ژوورەوە زانیارییەکانت بنووسە";
                 btn.innerText = "چوونە ژوورەوە";
                 question.innerText = "هەژمارت نییە؟";
                 switchBtn.innerText = "دروستکردنی ئەکاونت";
@@ -83,20 +84,17 @@
             let users = JSON.parse(localStorage.getItem('krd_users')) || [];
 
             if (isSignup) {
-                // پشکنینی بوونی یۆزەر
                 const exists = users.find(u => u.username === user);
                 if (exists) {
                     errorMsg.innerText = "ئەم ناوی بەکارهێنەرە پێشتر هەڵگیراوە!";
                     errorMsg.style.display = 'block';
                     return;
                 }
-                // دروستکردنی ئەکاونتی نوێ
                 users.push({ username: user, password: pass });
                 localStorage.setItem('krd_users', JSON.stringify(users));
                 alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا لۆگین بکە.');
                 toggleMode();
             } else {
-                // پشکنینی زانیارییەکانی لۆگین (یاخود یۆزەری سەرەتایی admin / admin)
                 const validUser = users.find(u => u.username === user && u.password === pass);
                 if (validUser || (users.length === 0 && user === "admin" && pass === "admin")) {
                     localStorage.setItem('current_user', user);
