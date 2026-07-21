@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -41,6 +42,14 @@
         .btn:hover {
             background: #0ea5e9;
         }
+        .logout-btn {
+            background: #ef4444;
+            color: #fff;
+            margin-top: 20px;
+        }
+        .logout-btn:hover {
+            background: #dc2626;
+        }
         .success-msg {
             margin-top: 10px;
             color: #34d399;
@@ -53,8 +62,8 @@
 <body>
 
     <div class="container">
-        <h1>بەڕێوەبردنی Krd Link</h1>
-        <p class="bio">لێرەدا لینکە نوێیەکانت زیاد بکە</p>
+        <h1>بەڕێوەبردنی لینکەکان</h1>
+        <p class="bio" id="welcomeUser">بەخێر هاتیت بۆ داشبۆرد</p>
 
         <div class="form-group">
             <label>ناوی بەرنامە یان لینک</label>
@@ -68,15 +77,27 @@
 
         <button class="btn" onclick="addNewLink()">زیادکردنی لینک</button>
         <div id="successMsg" class="success-msg">لینکەکە بە سەرکەوتوویی زیاد کرا!</div>
+
+        <button class="btn logout-btn" onclick="logout()">چوونە دەرەوە</button>
     </div>
 
     <script>
+        // پشکنینی چوونە ژوورەوە
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentUser = localStorage.getItem('current_user');
+            if (!currentUser) {
+                window.location.href = 'login.html';
+            } else {
+                document.getElementById('welcomeUser').innerText = `بەخێرهاتیت، ${currentUser}`;
+            }
+        });
+
         function addNewLink() {
             const name = document.getElementById('linkName').value;
             const url = document.getElementById('linkUrl').value;
 
             if(!name || !url) {
-                alert('تکایە هەردوو خانه پڕ بکەرەوە!');
+                alert('تکایە هەردوو خانە پڕ بکەرەوە!');
                 return;
             }
 
@@ -97,6 +118,11 @@
             setTimeout(() => {
                 msg.style.display = 'none';
             }, 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('current_user');
+            window.location.href = 'login.html';
         }
     </script>
 
