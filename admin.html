@@ -1,58 +1,186 @@
-
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krd Link - داشبۆرد</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
-        .welcome-box {
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.2);
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
             padding: 20px;
-            border-radius: 14px;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        .logout-btn {
-            background: #ef4444;
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 440px;
+            background: #0a0a0a;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.05);
+            box-sizing: border-box;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1.4rem;
             color: #fff;
-            margin-top: 15px;
         }
+
+        .logout-btn {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            color: #f87171;
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+        }
+
         .logout-btn:hover {
-            background: #dc2626;
+            background: rgba(248, 113, 113, 0.2);
+        }
+
+        .welcome-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .welcome-box h3 {
+            margin: 0 0 5px 0;
+            color: #a855f7;
+            font-size: 1.1rem;
+        }
+
+        .welcome-box p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #a855f7;
+        }
+
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            padding: 12px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+            transition: opacity 0.3s, transform 0.2s;
+            margin-top: 5px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>داشبۆردی بەڕێوەبردن</h1>
-        <p class="bio">بەخێر هاتیت بۆ پلاتفۆرمی Krd Link</p>
-
-        <div class="welcome-box">
-            <h3 id="userWelcome" style="color: #38bdf8; margin-bottom: 5px;">بەخێرهاتیت</h3>
-            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">تۆ بە سەرکەوتوویی چوویتە ژوورەوە.</p>
+    <div class="dashboard-container">
+        <div class="header-flex">
+            <h2>داشبۆردی Krd Link</h2>
+            <button class="logout-btn" onclick="logout()">چوونە دەرەوە</button>
         </div>
 
-        <button class="btn logout-btn" onclick="logout()">چوونە دەرەوە</button>
+        <div class="welcome-box">
+            <h3 id="displayUsername">بەکارهێنەر</h3>
+            <p>بەخێر هاتیت بۆ پڕۆفایلەکەت</p>
+        </div>
+
+        <div class="section-title">زیادکردنی لینکێکی نوێ</div>
+        <div class="form-group">
+            <input type="text" id="linkTitle" placeholder="ناونیشانی لینک (بۆ نموونە: تیلیگرام)">
+        </div>
+        <div class="form-group">
+            <input type="url" id="linkUrl" placeholder="بەستەر (https://...)">
+        </div>
+        <button class="btn" onclick="addLink()">زیادکردن</button>
     </div>
 
     <script>
-        // پشکنین ئایا بەکارهێنەر لۆگینی کردووە یان نا، ئەگەر نەینا، بگەڕێنەوە بۆ index.html
+        // پشکنین بۆ ئەوەی دڵنیا بین کەسێک لۆگینی کردووە
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('current_user');
             if (!currentUser) {
                 window.location.href = 'index.html';
-            } else {
-                document.getElementById('userWelcome').innerText = `بەخێرهاتیت، ${currentUser}`;
+                return;
             }
+            document.getElementById('displayUsername').innerText = currentUser;
         });
 
         function logout() {
             localStorage.removeItem('current_user');
             window.location.href = 'index.html';
+        }
+
+        function addLink() {
+            const title = document.getElementById('linkTitle').value.trim();
+            const url = document.getElementById('linkUrl').value.trim();
+
+            if (!title || !url) {
+                alert('تکایە هەردوو خانەکە پڕ بکەرەوە!');
+                return;
+            }
+
+            alert('لینکەکە بە سەرکەوتوویی وەرگیرا!');
+            document.getElementById('linkTitle').value = '';
+            document.getElementById('linkUrl').value = '';
         }
     </script>
 
