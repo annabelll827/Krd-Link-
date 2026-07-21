@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
@@ -7,14 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        .logout-btn {
-            background: #ef4444;
-            color: #fff;
-            margin-top: 20px;
-        }
-        .logout-btn:hover {
-            background: #dc2626;
-        }
         .welcome-box {
             background: rgba(56, 189, 248, 0.1);
             border: 1px solid rgba(56, 189, 248, 0.2);
@@ -22,28 +15,36 @@
             border-radius: 14px;
             margin-bottom: 20px;
         }
+        .logout-btn {
+            background: #ef4444;
+            color: #fff;
+            margin-top: 15px;
+        }
+        .logout-btn:hover {
+            background: #dc2626;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>داشبۆرد</h1>
+        <h1>داشبۆردی بەڕێوەبردن</h1>
         <p class="bio">بەخێر هاتیت بۆ پلاتفۆرمی Krd Link</p>
 
         <div class="welcome-box">
             <h3 id="userWelcome" style="color: #38bdf8; margin-bottom: 5px;">بەخێرهاتیت</h3>
-            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">تۆ بە سەرکەوتوویی لۆگینت کردووە.</p>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">تۆ بە سەرکەوتوویی چوویتە ژوورەوە.</p>
         </div>
 
         <button class="btn logout-btn" onclick="logout()">چوونە دەرەوە</button>
     </div>
 
     <script>
-        // پشکنین ئایا بەکارهێنەر لۆگینی کردووە یان نا
+        // پشکنین ئایا بەکارهێنەر لۆگینی کردووە یان نا، ئەگەر نەینا، بگەڕێنەوە بۆ index.html
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('current_user');
             if (!currentUser) {
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             } else {
                 document.getElementById('userWelcome').innerText = `بەخێرهاتیت، ${currentUser}`;
             }
@@ -51,7 +52,7 @@
 
         function logout() {
             localStorage.removeItem('current_user');
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
     </script>
 
