@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 40px 24px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #38bdf8;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+p.bio {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+.links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.link-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 20px;
+    border-radius: 14px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.link-card:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: #38bdf8;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.1);
+}
+
+.link-card i.left-icon {
+    font-size: 1.2rem;
+    color: #38bdf8;
+}
+
+.link-card span {
+    flex-grow: 1;
+    text-align: right;
+    margin-right: 15px;
+}
+
+.link-card i.arrow {
+    color: #64748b;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.link-card:hover i.arrow {
+    transform: translateX(-4px);
+    color: #38bdf8;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #64748b;
+}
