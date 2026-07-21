@@ -13,11 +13,71 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            box-sizing: border-box;
         }
 
+        /* هێدەری نوێی داشبۆرد وەک وێنەکە */
+        .dashboard-header {
+            width: 100%;
+            max-width: 440px;
+            background: #0a0a0a;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.05);
+            box-sizing: border-box;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb-main {
+            color: #a855f7;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .breadcrumb-separator {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-current {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        /* سندوقی سەرەکی داشبۆرد */
         .dashboard-container {
             width: 100%;
             max-width: 440px;
@@ -27,35 +87,6 @@
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.05);
             box-sizing: border-box;
-        }
-
-        .header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            margin: 0;
-            font-size: 1.4rem;
-            color: #fff;
-        }
-
-        .logout-btn {
-            background: rgba(248, 113, 113, 0.1);
-            border: 1px solid rgba(248, 113, 113, 0.2);
-            color: #f87171;
-            padding: 8px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-family: 'Vazirmatn', sans-serif;
-            font-size: 0.85rem;
-            transition: background 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: rgba(248, 113, 113, 0.2);
         }
 
         .welcome-box {
@@ -128,16 +159,42 @@
             opacity: 0.9;
             transform: translateY(-1px);
         }
+
+        .logout-section {
+            margin-top: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 15px;
+        }
+
+        .logout-link {
+            color: #f87171;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-container">
-        <div class="header-flex">
-            <h2>داشبۆردی Krd Link</h2>
-            <button class="logout-btn" onclick="logout()">چوونە دەرەوە</button>
+    <!-- هێدەری نوێ وەک وێنەکە -->
+    <header class="dashboard-header">
+        <div class="breadcrumb">
+            <span class="breadcrumb-main">Dashboard</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">Overview</span>
         </div>
+        <button class="menu-btn" onclick="alert('Menu & Settings')">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </header>
 
+    <div class="dashboard-container">
         <div class="welcome-box">
             <h3 id="displayUsername">بەکارهێنەر</h3>
             <p>بەخێر هاتیت بۆ پڕۆفایلەکەت</p>
@@ -151,10 +208,13 @@
             <input type="url" id="linkUrl" placeholder="بەستەر (https://...)">
         </div>
         <button class="btn" onclick="addLink()">زیادکردن</button>
+
+        <div class="logout-section">
+            <button class="logout-link" onclick="logout()">چوونە دەرەوە لە هەژمار</button>
+        </div>
     </div>
 
     <script>
-        // پشکنین بۆ ئەوەی دڵنیا بین کەسێک لۆگینی کردووە
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('current_user');
             if (!currentUser) {
