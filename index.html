@@ -149,7 +149,6 @@
         let isSignup = true;
         let currentLang = 'ku';
 
-        // فەرهەنگی وشەکان بۆ زمانەکان
         const translations = {
             ku: {
                 titleSignup: "دروستکردنی ئەکاونت",
@@ -158,8 +157,12 @@
                 subLogin: "بۆ چوونە ژوورەوە زانیارییەکانت بنووسە",
                 userLabelSignup: "ناوی ئەکاونت",
                 userLabelLogin: "ناوی بەکارهێنەر یان ئەکاونت",
+                userPlaceholderSignup: "ناوی ئەکاونت بنووسە...",
+                userPlaceholderLogin: "ناوی بەکارهێنەر بنووسە...",
                 emailLabel: "ئیمێڵ",
+                emailPlaceholder: "example@domain.com",
                 passLabel: "وشەنهێنی",
+                passPlaceholder: "••••••••",
                 btnSignup: "دروست کردن",
                 btnLogin: "چوونە ژوورەوە",
                 qHasAccount: "هەژمارت هەیە؟",
@@ -178,14 +181,18 @@
                 subLogin: "Enter your credentials to login",
                 userLabelSignup: "Account Name",
                 userLabelLogin: "Username or Account",
+                userPlaceholderSignup: "Enter account name...",
+                userPlaceholderLogin: "Enter username...",
                 emailLabel: "Email",
+                emailPlaceholder: "example@domain.com",
                 passLabel: "Password",
+                passPlaceholder: "••••••••",
                 btnSignup: "Create",
                 btnLogin: "Login",
                 qHasAccount: "Already have an account?",
                 qNoAccount: "Don't have an account?",
                 linkLogin: "Login",
-                linkSignup: "Create Account",
+                linkSignup: "Create",
                 errFields: "Please fill in all required fields!",
                 errExists: "This name or email already exists!",
                 errLogin: "Incorrect account name or password!",
@@ -198,7 +205,6 @@
             const t = translations[lang];
             const htmlTag = document.getElementById('htmlTag');
 
-            // گۆڕینی ئاراستەی نوسین (RTL بۆ کوردی، LTR بۆ ئینگلیزی)
             if (lang === 'en') {
                 htmlTag.setAttribute('dir', 'ltr');
                 htmlTag.setAttribute('lang', 'en');
@@ -207,12 +213,12 @@
                 htmlTag.setAttribute('lang', 'ku');
             }
 
-            // گۆڕینی دەقەکان بەپێی دۆخەکە (دروستکردن یان لۆگین)
             if (isSignup) {
                 document.getElementById('formTitle').innerText = t.titleSignup;
                 document.getElementById('formSubtitle').innerText = t.subSignup;
                 document.getElementById('actionBtn').innerText = t.btnSignup;
                 document.getElementById('userLabel').innerText = t.userLabelSignup;
+                document.getElementById('username').placeholder = t.userPlaceholderSignup;
                 document.getElementById('switchQuestion').innerText = t.qHasAccount;
                 document.getElementById('switchBtn').innerText = t.linkLogin;
             } else {
@@ -220,12 +226,15 @@
                 document.getElementById('formSubtitle').innerText = t.subLogin;
                 document.getElementById('actionBtn').innerText = t.btnLogin;
                 document.getElementById('userLabel').innerText = t.userLabelLogin;
+                document.getElementById('username').placeholder = t.userPlaceholderLogin;
                 document.getElementById('switchQuestion').innerText = t.qNoAccount;
                 document.getElementById('switchBtn').innerText = t.linkSignup;
             }
 
             document.getElementById('emailLabel').innerText = t.emailLabel;
+            document.getElementById('email').placeholder = t.emailPlaceholder;
             document.getElementById('passLabel').innerText = t.passLabel;
+            document.getElementById('password').placeholder = t.passPlaceholder;
         }
 
         function toggleMode() {
