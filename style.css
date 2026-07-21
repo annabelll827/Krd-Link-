@@ -17,7 +17,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 480px;
+    max-width: 440px;
     background: rgba(30, 41, 59, 0.7);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -60,6 +60,11 @@ p.bio {
     border-radius: 10px;
     color: #fff;
     font-size: 0.95rem;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #38bdf8;
 }
 
 .btn {
@@ -77,4 +82,28 @@ p.bio {
 
 .btn:hover {
     background: #0ea5e9;
+}
+
+.switch-text {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.switch-text a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.switch-text a:hover {
+    text-decoration: underline;
+}
+
+.error-msg {
+    color: #f87171;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    display: none;
 }
