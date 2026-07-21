@@ -163,7 +163,7 @@
             line-height: 1;
         }
 
-        /* --- دیزاینی کارتی Link Clicks (پنۆشی / مۆر) --- */
+        /* --- دیزاینی کارتی Link Clicks (پەنجەرەی کلیکەکان) --- */
         .clicks-card {
             background: #130a1c;
             border: 1px solid rgba(168, 85, 247, 0.2);
@@ -211,6 +211,34 @@
             font-weight: 700;
             color: #ffffff;
             line-height: 1;
+        }
+
+        /* --- نموونەی لینکەکانی ئەپەکان بۆ تاقیکردنەوە --- */
+        .social-links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .social-link-item {
+            background: #121212;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 16px 20px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .social-link-item:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(168, 85, 247, 0.4);
         }
 
         /* --- دیزاین مێنیووی تەنیشت (Sidebar Menu Modal) --- */
@@ -400,7 +428,7 @@
             </div>
         </div>
 
-        <!-- کارتی نوێی Link Clicks (کە لە 0 دەست پێدەکات و دوگمەکەی لادراوە) -->
+        <!-- کارتی Link Clicks (کە تەنها کاتێک کلیک لەسەر لینکەکانی خوارەوە کرێت زیاد دەبێت) -->
         <div class="clicks-card">
             <div class="clicks-top-row">
                 <div class="clicks-icon-box">
@@ -415,6 +443,18 @@
                 <div class="clicks-number" id="linkClicksCount">0</div>
             </div>
         </div>
+    </div>
+
+    <!-- لینکەکانی ئەپەکان (بۆ نموونە: Instagram, Telegram, etc.) -->
+    <div style="width: 100%; max-width: 440px; margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+        <a href="https://instagram.com" target="_blank" class="social-link-item" onclick="trackLinkClick()">
+            <span>Instagram</span>
+            <span>↗</span>
+        </a>
+        <a href="https://telegram.org" target="_blank" class="social-link-item" onclick="trackLinkClick()">
+            <span>Telegram</span>
+            <span>↗</span>
+        </a>
     </div>
 
     <!-- پەنجەرەی مێنیووی تەنیشت (Sidebar Menu Modal) -->
@@ -495,20 +535,27 @@
             // پیشاندانی ناوی بەکارهێنەر
             document.getElementById('displayUsername').innerText = currentUser;
 
-            // ١. هەژمارکردنی سەردانی پڕۆفایل (Profile Views) لە 0ـەوە
+            // ١. هەژمارکردنی سەردانی پڕۆفایل (Profile Views) لە 0ـەوە دەستپێدەکات و تەنیا لە کاتی کردنەوەی پڕۆفایلەکە زیاد دەکات
             const viewKey = 'profile_views_' + currentUser;
             let currentViews = parseInt(localStorage.getItem(viewKey)) || 0;
             currentViews += 1;
             localStorage.setItem(viewKey, currentViews);
             document.getElementById('profileViewsCount').innerText = currentViews;
 
-            // ٢. هەژمارکردنی کرتە/سەردانی لینکەکان (Link Clicks) لە 0ـەوە
+            // ٢. نیشاندانی ژمارەی کلیکی لینکەکان بۆ ئەم بەکارهێنەرە لە localStorage بێ ئەوەی لێرە زیاد بکات
+            const clicksKey = 'link_clicks_' + currentUser;
+            let currentClicks = parseInt(localStorage.getItem(clicksKey)) || 0;
+            document.getElementById('linkClicksCount').innerText = currentClicks;
+        });
+
+        // ئەم فەنکشنە تەنها کاتێک کار دەکات کە کەسێک لەسەر لینکەکان (ئەپەکان) کرتە بکات
+        function trackLinkClick() {
+            const currentUser = localStorage.getItem('current_user') || 'default_user';
             const clicksKey = 'link_clicks_' + currentUser;
             let currentClicks = parseInt(localStorage.getItem(clicksKey)) || 0;
             currentClicks += 1;
             localStorage.setItem(clicksKey, currentClicks);
-            document.getElementById('linkClicksCount').innerText = currentClicks;
-        });
+        }
 
         function toggleMenu() {
             const overlay = document.getElementById('menuOverlay');
