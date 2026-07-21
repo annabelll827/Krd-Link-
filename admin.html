@@ -333,7 +333,7 @@
             <div class="profile-username-display" id="displayUsername">username</div>
         </div>
 
-        <!-- کارتی Profail Viuw (بێ دوگمە لادراوەکان و ژمارەی بەکارهێنەر) -->
+        <!-- کارتی Profail Viuw کە لە 0 دەست پێدەکات -->
         <div class="stats-card">
             <div class="stats-top-row">
                 <div class="stats-icon-box">
@@ -429,9 +429,9 @@
             // پیشاندانی ناوی بەکارهێنەر
             document.getElementById('displayUsername').innerText = currentUser;
 
-            // سیستەمی هەژمارکردنی سەردانی پڕۆفایل بۆ هەر ئەکاونتێک بە جیا
+            // سیستەمی هەژمارکردنی سەردانی پڕۆفایل لە 0ـەوە دەستپێدەکات
             const viewKey = 'profile_views_' + currentUser;
-            let currentViews = parseInt(localStorage.getItem(viewKey)) || 37;
+            let currentViews = parseInt(localStorage.getItem(viewKey)) || 0;
             
             // زیادکردنی ژمارەیەک کاتێک پڕۆفایلەکە دەکرێتەوە
             currentViews += 1;
