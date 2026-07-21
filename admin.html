@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krd Link - بەڕێوەبردن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #0ea5e9;
+        }
+        .success-msg {
+            margin-top: 10px;
+            color: #34d399;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>بەڕێوەبردنی Krd Link</h1>
+        <p class="bio">لێرەدا لینکە نوێیەکانت زیاد بکە</p>
+
+        <div class="form-group">
+            <label>ناوی بەرنامە یان لینک</label>
+            <input type="text" id="linkName" placeholder="بۆ نموونە: سێرڤەری دیسکۆرد...">
+        </div>
+
+        <div class="form-group">
+            <label>ناونیشانی لینک (URL)</label>
+            <input type="text" id="linkUrl" placeholder="https://...">
+        </div>
+
+        <button class="btn" onclick="addNewLink()">زیادکردنی لینک</button>
+        <div id="successMsg" class="success-msg">لینکەکە بە سەرکەوتوویی زیاد کرا!</div>
+    </div>
+
+    <script>
+        function addNewLink() {
+            const name = document.getElementById('linkName').value;
+            const url = document.getElementById('linkUrl').value;
+
+            if(!name || !url) {
+                alert('تکایە هەردوو خانه پڕ بکەرەوە!');
+                return;
+            }
+
+            let savedLinks = JSON.parse(localStorage.getItem('krd_links')) || [
+                { name: "سێرڤەری دیسکۆرد", url: "https://discord.com", icon: "fa-discord" },
+                { name: "پڕۆژەکانی گیتهەب", url: "https://github.com", icon: "fa-github" },
+                { name: "کەناڵی تێلیگرام", url: "https://t.me", icon: "fa-telegram" }
+            ];
+
+            savedLinks.push({ name: name, url: url, icon: "fa-link" });
+            localStorage.setItem('krd_links', JSON.stringify(savedLinks));
+
+            document.getElementById('linkName').value = '';
+            document.getElementById('linkUrl').value = '';
+
+            const msg = document.getElementById('successMsg');
+            msg.style.display = 'block';
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
