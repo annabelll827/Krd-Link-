@@ -3,10 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krd Link - لۆگین / خۆتۆمارکردن</title>
+    <title>Krd Link - لۆگین</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
         .form-group {
             margin-bottom: 15px;
             text-align: right;
@@ -19,7 +54,7 @@
         }
         .form-group input {
             width: 100%;
-            padding: 10px 14px;
+            padding: 12px 14px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
@@ -41,16 +76,6 @@
         .btn:hover {
             background: #0ea5e9;
         }
-        .switch-text {
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-        .switch-text a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: 600;
-        }
         .error-msg {
             color: #f87171;
             font-size: 0.85rem;
@@ -62,10 +87,9 @@
 <body>
 
     <div class="container">
-        <h1 id="formTitle">چوونە ژوورەوە</h1>
-        <p class="bio" id="formSubtitle">بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە</p>
+        <h1>چوونە ژوورەوە</h1>
+        <p>بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە</p>
 
-        <!-- فۆرمی لۆگین و خۆتۆمارکردن -->
         <div class="form-group">
             <label>ناوی بەکارهێنەر (Username)</label>
             <input type="text" id="username" placeholder="ناوی خۆت بنووسە...">
@@ -76,79 +100,29 @@
             <input type="password" id="password" placeholder="••••••••">
         </div>
 
-        <button class="btn" id="actionBtn" onclick="handleAuth()">چوونە ژوورەوە</button>
-        <div id="errorMsg" class="error-msg">تکایە خانەکان بە دروستی پڕبکەرەوە!</div>
-
-        <div class="switch-text">
-            <span id="switchQuestion">هەژمارت نییە؟</span> 
-            <a href="#" id="switchBtn" onclick="toggleMode(event)">خۆتۆمارکردن</a>
-        </div>
+        <button class="btn" onclick="handleLogin()">چوونە ژوورەوە</button>
+        <div id="errorMsg" class="error-msg">تکایە خانەکان پڕبکەرەوە!</div>
     </div>
 
     <script>
-        let isSignup = false;
-
-        function toggleMode(e) {
-            e.preventDefault();
-            isSignup = !isSignup;
-            const title = document.getElementById('formTitle');
-            const subtitle = document.getElementById('formSubtitle');
-            const btn = document.getElementById('actionBtn');
-            const question = document.getElementById('switchQuestion');
-            const switchBtn = document.getElementById('switchBtn');
-
-            if (isSignup) {
-                title.innerText = "دروستکردنی ئەکاونت";
-                subtitle.innerText = "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە";
-                btn.innerText = "خۆتۆمارکردن";
-                question.innerText = "هەژمارت هەیە؟";
-                switchBtn.innerText = "چوونە ژوورەوە";
-            } else {
-                title.innerText = "چوونە ژوورەوە";
-                subtitle.innerText = "بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە";
-                btn.innerText = "چوونە ژوورەوە";
-                question.innerText = "هەژمارت نییە؟";
-                switchBtn.innerText = "خۆتۆمارکردن";
-            }
-        }
-
-        function handleAuth() {
+        function handleLogin() {
             const user = document.getElementById('username').value.trim();
             const pass = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('errorMsg');
 
             if (!user || !pass) {
-                errorMsg.innerText = "تکایە هەردوو خانە پڕ بکەرەوە!";
+                errorMsg.innerText = "تکایە ناو و وشەی تێپەڕ بنووسە!";
                 errorMsg.style.display = 'block';
                 return;
             }
 
-            let users = JSON.parse(localStorage.getItem('krd_users')) || [];
-
-            if (isSignup) {
-                // پشکنین ئایا بەکارهێنەر پێشتر هەیە
-                const exists = users.find(u => u.username === user);
-                if (exists) {
-                    errorMsg.innerText = "ئەم ناوی بەکارهێنەرە پێشتر هەڵگیراوە!";
-                    errorMsg.style.display = 'block';
-                    return;
-                }
-                // زیادکردنی بەکارهێنەری نوێ
-                users.push({ username: user, password: pass });
-                localStorage.setItem('krd_users', JSON.stringify(users));
-                alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا لۆگین بکە.');
-                toggleMode(new Event('click'));
+            // بۆ تاقی کردنەوە، ناوی admin و پاسۆردی admin بەکاربێنە
+            if (user === "admin" && pass === "admin") {
+                localStorage.setItem('current_user', user);
+                window.location.href = 'admin.html';
             } else {
-                // پشکنینی لۆگین
-                const validUser = users.find(u => u.username === user && u.password === pass);
-                if (validUser || (users.length === 0 && user === "admin" && pass === "admin")) {
-                    // لۆگینی سەرکەوتوو
-                    localStorage.setItem('current_user', user);
-                    window.location.href = 'admin.html';
-                } else {
-                    errorMsg.innerText = "ناوی بەکارهێنەر یان وشەی تێپەڕ هەڵەیە!";
-                    errorMsg.style.display = 'block';
-                }
+                errorMsg.innerText = "ناوی بەکارهێنەر یان وشەی تێپەڕ هەڵەیە! (بەکارهێنەر: admin, پاسۆرد: admin)";
+                errorMsg.style.display = 'block';
             }
         }
     </script>
