@@ -163,6 +163,56 @@
             line-height: 1;
         }
 
+        /* --- دیزاینی کارتی Link Clicks (پنۆشی / مۆر) --- */
+        .clicks-card {
+            background: #130a1c;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .clicks-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .clicks-icon-box {
+            background: rgba(168, 85, 247, 0.15);
+            border: none;
+            border-radius: 14px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #a855f7;
+        }
+
+        .clicks-title-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .clicks-number-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .clicks-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1;
+        }
+
         /* --- دیزاین مێنیووی تەنیشت (Sidebar Menu Modal) --- */
         .menu-overlay {
             position: fixed;
@@ -333,7 +383,7 @@
             <div class="profile-username-display" id="displayUsername">username</div>
         </div>
 
-        <!-- کارتی Profail Viuw کە لە 0 دەست پێدەکات -->
+        <!-- کارتی Profail Viuw -->
         <div class="stats-card">
             <div class="stats-top-row">
                 <div class="stats-icon-box">
@@ -347,6 +397,22 @@
 
             <div class="stats-number-row">
                 <div class="stats-number" id="profileViewsCount">0</div>
+            </div>
+        </div>
+
+        <!-- کارتی نوێی Link Clicks (کە لە 0 دەست پێدەکات و دوگمەکەی لادراوە) -->
+        <div class="clicks-card">
+            <div class="clicks-top-row">
+                <div class="clicks-icon-box">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
+                    </svg>
+                </div>
+                <div class="clicks-title-tag">LINK CLICKS</div>
+            </div>
+
+            <div class="clicks-number-row">
+                <div class="clicks-number" id="linkClicksCount">0</div>
             </div>
         </div>
     </div>
@@ -429,16 +495,19 @@
             // پیشاندانی ناوی بەکارهێنەر
             document.getElementById('displayUsername').innerText = currentUser;
 
-            // سیستەمی هەژمارکردنی سەردانی پڕۆفایل لە 0ـەوە دەستپێدەکات
+            // ١. هەژمارکردنی سەردانی پڕۆفایل (Profile Views) لە 0ـەوە
             const viewKey = 'profile_views_' + currentUser;
             let currentViews = parseInt(localStorage.getItem(viewKey)) || 0;
-            
-            // زیادکردنی ژمارەیەک کاتێک پڕۆفایلەکە دەکرێتەوە
             currentViews += 1;
             localStorage.setItem(viewKey, currentViews);
-
-            // نیشاندانی ژمارەکە لە خانەکەدا
             document.getElementById('profileViewsCount').innerText = currentViews;
+
+            // ٢. هەژمارکردنی کرتە/سەردانی لینکەکان (Link Clicks) لە 0ـەوە
+            const clicksKey = 'link_clicks_' + currentUser;
+            let currentClicks = parseInt(localStorage.getItem(clicksKey)) || 0;
+            currentClicks += 1;
+            localStorage.setItem(clicksKey, currentClicks);
+            document.getElementById('linkClicksCount').innerText = currentClicks;
         });
 
         function toggleMenu() {
