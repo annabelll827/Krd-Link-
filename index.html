@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku" dir="rtl" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krd Link - دروستکردنی ئەکاونت و لۆگین</title>
+    <title id="pageTitle">Krd Link - دروستکردنی ئەکاونت و لۆگین</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -21,12 +21,10 @@
             margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-
         .logo-area {
             display: flex;
             align-items: center;
         }
-
         .logo-icon {
             width: 36px;
             height: 36px;
@@ -40,13 +38,11 @@
             font-size: 1.2rem;
             box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
-
         .header-left {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .menu-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -60,12 +56,9 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-
         .menu-btn:hover {
             background: rgba(255, 255, 255, 0.1);
         }
-
-        /* شێوازی بەشی زمان */
         .lang-select {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -79,22 +72,18 @@
             outline: none;
             transition: background 0.3s;
         }
-
         .lang-select option {
             background: #1e293b;
             color: #fff;
         }
-
         .lang-select:hover {
             background: rgba(255, 255, 255, 0.1);
         }
-
         body {
             flex-direction: column;
             justify-content: flex-start;
             padding-top: 30px;
         }
-
         .error-msg {
             color: #f87171;
             font-size: 0.85rem;
@@ -105,13 +94,12 @@
 </head>
 <body>
 
-    <!-- بەشی سەرەوە (Header) کە دوگمەی مینیو و بەشی زمانی تێدایە -->
     <header class="site-header">
         <div class="header-left">
-            <button class="menu-btn" onclick="alert('مینیو و ڕێکخستنەکان')">
+            <button class="menu-btn" onclick="alert('Menu & Settings')">
                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <select class="lang-select" onchange="changeLanguage(this.value)">
+            <select class="lang-select" id="langSelector" onchange="changeLanguage(this.value)">
                 <option value="ku">کوردی</option>
                 <option value="en">English</option>
             </select>
@@ -122,7 +110,6 @@
         </div>
     </header>
 
-    <!-- فۆرمی سەرەکی -->
     <div class="container">
         <h1 id="formTitle">دروستکردنی ئەکاونت</h1>
         <p class="bio" id="formSubtitle">ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە</p>
@@ -133,12 +120,12 @@
         </div>
 
         <div class="form-group" id="emailGroup">
-            <label>ئیمێڵ</label>
+            <label id="emailLabel">ئیمێڵ</label>
             <input type="email" id="email" placeholder="example@domain.com">
         </div>
 
         <div class="form-group">
-            <label>وشەنهێنی</label>
+            <label id="passLabel">وشەنهێنی</label>
             <input type="password" id="password" placeholder="••••••••">
         </div>
 
@@ -160,42 +147,92 @@
         });
 
         let isSignup = true;
+        let currentLang = 'ku';
+
+        // فەرهەنگی وشەکان بۆ زمانەکان
+        const translations = {
+            ku: {
+                titleSignup: "دروستکردنی ئەکاونت",
+                subSignup: "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە",
+                titleLogin: "چوونە ژوورەوە",
+                subLogin: "بۆ چوونە ژوورەوە زانیارییەکانت بنووسە",
+                userLabelSignup: "ناوی ئەکاونت",
+                userLabelLogin: "ناوی بەکارهێنەر یان ئەکاونت",
+                emailLabel: "ئیمێڵ",
+                passLabel: "وشەنهێنی",
+                btnSignup: "دروست کردن",
+                btnLogin: "چوونە ژوورەوە",
+                qHasAccount: "هەژمارت هەیە؟",
+                qNoAccount: "هەژمارت نییە؟",
+                linkLogin: "چوونە ژوورەوە",
+                linkSignup: "دروست کردن",
+                errFields: "تکایە هەموو خانە پێویستەکان پڕ بکەرەوە!",
+                errExists: "ئەم ناو یان ئیمێڵە پێشتر دروست کراوە!",
+                errLogin: "ناوی ئەکاونت یان وشەنهێنی هەڵەیە!",
+                successMsg: "ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا دەتوانیت لۆگین بکەی."
+            },
+            en: {
+                titleSignup: "Create Account",
+                subSignup: "Create a new account for the platform",
+                titleLogin: "Login",
+                subLogin: "Enter your credentials to login",
+                userLabelSignup: "Account Name",
+                userLabelLogin: "Username or Account",
+                emailLabel: "Email",
+                passLabel: "Password",
+                btnSignup: "Create",
+                btnLogin: "Login",
+                qHasAccount: "Already have an account?",
+                qNoAccount: "Don't have an account?",
+                linkLogin: "Login",
+                linkSignup: "Create Account",
+                errFields: "Please fill in all required fields!",
+                errExists: "This name or email already exists!",
+                errLogin: "Incorrect account name or password!",
+                successMsg: "Account created successfully! You can now log in."
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            const htmlTag = document.getElementById('htmlTag');
+
+            // گۆڕینی ئاراستەی نوسین (RTL بۆ کوردی، LTR بۆ ئینگلیزی)
+            if (lang === 'en') {
+                htmlTag.setAttribute('dir', 'ltr');
+                htmlTag.setAttribute('lang', 'en');
+            } else {
+                htmlTag.setAttribute('dir', 'rtl');
+                htmlTag.setAttribute('lang', 'ku');
+            }
+
+            // گۆڕینی دەقەکان بەپێی دۆخەکە (دروستکردن یان لۆگین)
+            if (isSignup) {
+                document.getElementById('formTitle').innerText = t.titleSignup;
+                document.getElementById('formSubtitle').innerText = t.subSignup;
+                document.getElementById('actionBtn').innerText = t.btnSignup;
+                document.getElementById('userLabel').innerText = t.userLabelSignup;
+                document.getElementById('switchQuestion').innerText = t.qHasAccount;
+                document.getElementById('switchBtn').innerText = t.linkLogin;
+            } else {
+                document.getElementById('formTitle').innerText = t.titleLogin;
+                document.getElementById('formSubtitle').innerText = t.subLogin;
+                document.getElementById('actionBtn').innerText = t.btnLogin;
+                document.getElementById('userLabel').innerText = t.userLabelLogin;
+                document.getElementById('switchQuestion').innerText = t.qNoAccount;
+                document.getElementById('switchBtn').innerText = t.linkSignup;
+            }
+
+            document.getElementById('emailLabel').innerText = t.emailLabel;
+            document.getElementById('passLabel').innerText = t.passLabel;
+        }
 
         function toggleMode() {
             isSignup = !isSignup;
-            const title = document.getElementById('formTitle');
-            const subtitle = document.getElementById('formSubtitle');
-            const btn = document.getElementById('actionBtn');
-            const question = document.getElementById('switchQuestion');
-            const switchBtn = document.getElementById('switchBtn');
-            const emailGroup = document.getElementById('emailGroup');
-            const userLabel = document.getElementById('userLabel');
-            const errorMsg = document.getElementById('errorMsg');
-            
-            errorMsg.style.display = 'none';
-
-            if (isSignup) {
-                title.innerText = "دروستکردنی ئەکاونت";
-                subtitle.innerText = "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە";
-                btn.innerText = "دروست کردن";
-                question.innerText = "هەژمارت هەیە؟";
-                switchBtn.innerText = "چوونە ژوورەوە";
-                emailGroup.style.display = "block";
-                userLabel.innerText = "ناوی ئەکاونت";
-            } else {
-                title.innerText = "چوونە ژوورەوە";
-                subtitle.innerText = "بۆ چوونە ژوورەوە زانیارییەکانت بنووسە";
-                btn.innerText = "چوونە ژوورەوە";
-                question.innerText = "هەژمارت نییە؟";
-                switchBtn.innerText = "دروست کردن";
-                emailGroup.style.display = "none";
-                userLabel.innerText = "ناوی بەکارهێنەر یان ئەکاونت";
-            }
-        }
-
-        function changeLanguage(lang) {
-            // دەتوانیت لێرەدا کۆدی گۆڕینی زمانی سایتەکە زیاد بکەیت لە داهاتوودا
-            console.LANGUAGE = lang;
+            changeLanguage(currentLang);
+            document.getElementById('errorMsg').style.display = 'none';
+            document.getElementById('emailGroup').style.display = isSignup ? "block" : "none";
         }
 
         function handleAuth() {
@@ -203,9 +240,10 @@
             const user = document.getElementById('username').value.trim();
             const pass = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('errorMsg');
+            const t = translations[currentLang];
 
             if (!user || !pass || (isSignup && !email)) {
-                errorMsg.innerText = "تکایە هەموو خانە پێویستەکان پڕ بکەرەوە!";
+                errorMsg.innerText = t.errFields;
                 errorMsg.style.display = 'block';
                 return;
             }
@@ -215,13 +253,13 @@
             if (isSignup) {
                 const exists = users.find(u => u.username === user || u.email === email);
                 if (exists) {
-                    errorMsg.innerText = "ئەم ناو یان ئیمێڵە پێشتر دروست کراوە!";
+                    errorMsg.innerText = t.errExists;
                     errorMsg.style.display = 'block';
                     return;
                 }
                 users.push({ email: email, username: user, password: pass });
                 localStorage.setItem('krd_users', JSON.stringify(users));
-                alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا دەتوانیت لۆگین بکەی.');
+                alert(t.successMsg);
                 toggleMode();
             } else {
                 const validUser = users.find(u => u.username === user && u.password === pass);
@@ -229,7 +267,7 @@
                     localStorage.setItem('current_user', user);
                     window.location.href = 'admin.html';
                 } else {
-                    errorMsg.innerText = "ناوی ئەکاونت یان وشەنهێنی هەڵەیە!";
+                    errorMsg.innerText = t.errLogin;
                     errorMsg.style.display = 'block';
                 }
             }
