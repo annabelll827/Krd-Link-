@@ -5,13 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krd Link - لۆگین</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #38bdf8;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #0ea5e9;
+        }
         .error-msg {
             color: #f87171;
             font-size: 0.85rem;
             margin-top: 10px;
             display: none;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -19,20 +102,22 @@
 
     <div class="container">
         <h1>چوونە ژوورەوە</h1>
-        <p class="bio">بۆ هاتنە ژوورەوە بۆ داشبۆرد زانیارییەکانت بنووسە</p>
+        <p>ناوی بەکارهێنەر و وشەی تێپەڕ بنووسە</p>
 
         <div class="form-group">
             <label>ناوی بەکارهێنەر (Username)</label>
-            <input type="text" id="username" placeholder="ناوی بەکارهێنەر...">
+            <input type="text" id="username" placeholder="admin">
         </div>
 
         <div class="form-group">
             <label>وشەی تێپەڕ (Password)</label>
-            <input type="password" id="password" placeholder="••••••••">
+            <input type="password" id="password" placeholder="admin">
         </div>
 
         <button class="btn" onclick="handleLogin()">چوونە ژوورەوە</button>
-        <div id="errorMsg" class="error-msg">ناوی بەکارهێنەر یان وشەی تێپەڕ هەڵەیە!</div>
+        <div id="errorMsg" class="error-msg"></div>
+
+        <a href="index.html" class="back-link">گەڕانەوە بۆ پەڕەی سەرەکی</a>
     </div>
 
     <script>
@@ -47,7 +132,7 @@
                 return;
             }
 
-            // لێرەدا بۆ تاقیکردنەوە: ناوی admin و پاسۆردی admin دانراوە
+            // لێرەدا یۆزەر و پاسۆردی سەرەتایی دانراوە
             if (user === "admin" && pass === "admin") {
                 localStorage.setItem('current_user', user);
                 window.location.href = 'admin.html';
