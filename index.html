@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ڕەشی ڕەها بۆ باکگراوند */
         body {
             background-color: #000000 !important;
             color: #ffffff;
@@ -16,7 +15,6 @@
             padding-top: 30px;
         }
 
-        /* سندوقەکان بە ڕەشی تۆخ و لێوارەی مۆری کاڵ */
         .container, .site-header {
             background: #0a0a0a !important;
             border: 1px solid rgba(139, 92, 246, 0.2) !important;
@@ -40,7 +38,6 @@
             align-items: center;
         }
 
-        /* ئایکۆنی لۆگۆ بە ڕەنگی مۆر */
         .logo-icon {
             width: 36px;
             height: 36px;
@@ -102,7 +99,6 @@
             background: rgba(139, 92, 246, 0.2);
         }
 
-        /* دوگمەی سەرەکی (دروست کردن / لۆگین) بە ڕەنگی مۆر */
         .btn {
             background: linear-gradient(135deg, #a855f7, #7e22ce) !important;
             color: #fff !important;
@@ -116,7 +112,6 @@
             transform: translateY(-1px);
         }
 
-        /* خانەکانی نوسین بە ڕەشی تۆخ */
         input {
             background: #050505 !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -139,6 +134,93 @@
             color: #a855f7 !important;
             cursor: pointer;
             text-decoration: underline;
+        }
+
+        /* بەشی پیشاندانی خاوەن سەحی شین (Verified Users) */
+        .verified-section {
+            margin-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            width: 100%;
+        }
+
+        .verified-title {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .verified-list {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none; /* بۆ ناشاردنەوەی سکڕۆڵبار لە فایرفۆکس */
+        }
+
+        .verified-list::-webkit-scrollbar {
+            display: none; /* بۆ ناشاردنەوەی سکڕۆڵبار لە کرۆم و سەفاری */
+        }
+
+        .verified-user-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 8px 12px;
+            min-width: 75px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .verified-user-card:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .verified-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .verified-name-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .verified-username {
+            font-size: 0.75rem;
+            color: #e2e8f0;
+            white-space: nowrap;
+        }
+
+        /* سەحی شین */
+        .blue-tick {
+            width: 12px;
+            height: 12px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 8px;
         }
     </style>
 </head>
@@ -186,6 +268,35 @@
             <span id="switchQuestion">هەژمارت هەیە؟</span> 
             <a id="switchBtn" onclick="toggleMode()">چوونە ژوورەوە</a>
         </div>
+
+        <!-- بەشی پیشاندانی خاوەن سەحی شین لە خوارەوە -->
+        <div class="verified-section">
+            <div class="verified-title" id="verifiedTitleText">ئەکاونتە باوەڕپێکراوەکان</div>
+            <div class="verified-list">
+                <!-- نموونەی ئەکاونتی باوەڕپێکراو -->
+                <div class="verified-user-card" onclick="alert('کورد لینک - پلاتفۆرمی فەرمی')">
+                    <div class="verified-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">K</div>
+                    <div class="verified-name-wrapper">
+                        <span class="verified-username">KrdLink</span>
+                        <span class="blue-tick">✓</span>
+                    </div>
+                </div>
+                <div class="verified-user-card" onclick="alert('ئەکاونتی سەرپەرشتیار')">
+                    <div class="verified-avatar">A</div>
+                    <div class="verified-name-wrapper">
+                        <span class="verified-username">Admin</span>
+                        <span class="blue-tick">✓</span>
+                    </div>
+                </div>
+                <div class="verified-user-card" onclick="alert('ئەکاونتی پشتیوانی')">
+                    <div class="verified-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">S</div>
+                    <div class="verified-name-wrapper">
+                        <span class="verified-username">Support</span>
+                        <span class="blue-tick">✓</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -219,6 +330,7 @@
                 qNoAccount: "هەژمارت نییە؟",
                 linkLogin: "چوونە ژوورەوە",
                 linkSignup: "دروست کردن",
+                verifiedTitle: "ئەکاونتە باوەڕپێکراوەکان",
                 errFields: "تکایە هەموو خانە پێویستەکان پڕ بکەرەوە!",
                 errExists: "ئەم ناو یان ئیمێڵە پێشتر دروست کراوە!",
                 errLogin: "ناوی ئەکاونت یان وشەنهێنی هەڵەیە!",
@@ -243,6 +355,7 @@
                 qNoAccount: "Don't have an account?",
                 linkLogin: "Login",
                 linkSignup: "Create",
+                verifiedTitle: "Verified Accounts",
                 errFields: "Please fill in all required fields!",
                 errExists: "This name or email already exists!",
                 errLogin: "Incorrect account name or password!",
@@ -285,6 +398,7 @@
             document.getElementById('email').placeholder = t.emailPlaceholder;
             document.getElementById('passLabel').innerText = t.passLabel;
             document.getElementById('password').placeholder = t.passPlaceholder;
+            document.getElementById('verifiedTitleText').innerText = t.verifiedTitle;
         }
 
         function toggleMode() {
