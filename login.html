@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krd Link - لۆگین / خۆتۆمارکردن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #0ea5e9;
+        }
+        .switch-text {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        .switch-text a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .error-msg {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="formTitle">چوونە ژوورەوە</h1>
+        <p class="bio" id="formSubtitle">بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە</p>
+
+        <!-- فۆرمی لۆگین و خۆتۆمارکردن -->
+        <div class="form-group">
+            <label>ناوی بەکارهێنەر (Username)</label>
+            <input type="text" id="username" placeholder="ناوی خۆت بنووسە...">
+        </div>
+
+        <div class="form-group">
+            <label>وشەی تێپەڕ (Password)</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+
+        <button class="btn" id="actionBtn" onclick="handleAuth()">چوونە ژوورەوە</button>
+        <div id="errorMsg" class="error-msg">تکایە خانەکان بە دروستی پڕبکەرەوە!</div>
+
+        <div class="switch-text">
+            <span id="switchQuestion">هەژمارت نییە؟</span> 
+            <a href="#" id="switchBtn" onclick="toggleMode(event)">خۆتۆمارکردن</a>
+        </div>
+    </div>
+
+    <script>
+        let isSignup = false;
+
+        function toggleMode(e) {
+            e.preventDefault();
+            isSignup = !isSignup;
+            const title = document.getElementById('formTitle');
+            const subtitle = document.getElementById('formSubtitle');
+            const btn = document.getElementById('actionBtn');
+            const question = document.getElementById('switchQuestion');
+            const switchBtn = document.getElementById('switchBtn');
+
+            if (isSignup) {
+                title.innerText = "دروستکردنی ئەکاونت";
+                subtitle.innerText = "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە";
+                btn.innerText = "خۆتۆمارکردن";
+                question.innerText = "هەژمارت هەیە؟";
+                switchBtn.innerText = "چوونە ژوورەوە";
+            } else {
+                title.innerText = "چوونە ژوورەوە";
+                subtitle.innerText = "بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە";
+                btn.innerText = "چوونە ژوورەوە";
+                question.innerText = "هەژمارت نییە؟";
+                switchBtn.innerText = "خۆتۆمارکردن";
+            }
+        }
+
+        function handleAuth() {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!user || !pass) {
+                errorMsg.innerText = "تکایە هەردوو خانە پڕ بکەرەوە!";
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('krd_users')) || [];
+
+            if (isSignup) {
+                // پشکنین ئایا بەکارهێنەر پێشتر هەیە
+                const exists = users.find(u => u.username === user);
+                if (exists) {
+                    errorMsg.innerText = "ئەم ناوی بەکارهێنەرە پێشتر هەڵگیراوە!";
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                // زیادکردنی بەکارهێنەری نوێ
+                users.push({ username: user, password: pass });
+                localStorage.setItem('krd_users', JSON.stringify(users));
+                alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا لۆگین بکە.');
+                toggleMode(new Event('click'));
+            } else {
+                // پشکنینی لۆگین
+                const validUser = users.find(u => u.username === user && u.password === pass);
+                if (validUser || (users.length === 0 && user === "admin" && pass === "admin")) {
+                    // لۆگینی سەرکەوتوو
+                    localStorage.setItem('current_user', user);
+                    window.location.href = 'admin.html';
+                } else {
+                    errorMsg.innerText = "ناوی بەکارهێنەر یان وشەی تێپەڕ هەڵەیە!";
+                    errorMsg.style.display = 'block';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
