@@ -3,15 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krd Link - چوونە ژوورەوە و تۆماربوون</title>
+    <title>Krd Link - تۆماربوون و لۆگین بە ئیمێڵ</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .error-msg {
+            color: #f87171;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
         <h1 id="formTitle">دروستکردنی ئەکاونت</h1>
-        <p class="bio" id="formSubtitle">تۆماربکە بۆ دەستپێکردن</p>
+        <p class="bio" id="formSubtitle">ئیمێڵ و وشەی تێپەڕ بنووسە بۆ دەستپێکردن</p>
+
+        <!-- خانەی ئیمێڵ (تەنها لە کاتی دروستکردنی ئەکاونت دەردەکەوێت یان بۆ هەردووکیان بەکاردێت) -->
+        <div class="form-group" id="emailGroup">
+            <label>ئیمێڵ (Email)</label>
+            <input type="email" id="email" placeholder="example@domain.com">
+        </div>
 
         <div class="form-group">
             <label>ناوی بەکارهێنەر (Username)</label>
@@ -41,7 +55,6 @@
             }
         });
 
-        // لێرەدا لە سەرەتادا دەکەینە دۆخی دروستکردنی ئەکاونت (Signup)
         let isSignup = true;
 
         function toggleMode() {
@@ -51,32 +64,36 @@
             const btn = document.getElementById('actionBtn');
             const question = document.getElementById('switchQuestion');
             const switchBtn = document.getElementById('switchBtn');
+            const emailGroup = document.getElementById('emailGroup');
             const errorMsg = document.getElementById('errorMsg');
             
             errorMsg.style.display = 'none';
 
             if (isSignup) {
                 title.innerText = "دروستکردنی ئەکاونت";
-                subtitle.innerText = "تۆماربکە بۆ دەستپێکردن";
+                subtitle.innerText = "ئیمێڵ و وشەی تێپەڕ بنووسە بۆ دەستپێکردن";
                 btn.innerText = "تۆمارکردن";
                 question.innerText = "هەژمارت هەیە؟";
                 switchBtn.innerText = "چوونە ژوورەوە";
+                emailGroup.style.display = "block";
             } else {
                 title.innerText = "چوونە ژوورەوە";
-                subtitle.innerText = "بۆ چوونە ژوورەوە زانیارییەکانت بنووسە";
+                subtitle.innerText = "ناوی بەکارهێنەر و وشەی تێپەڕ بنووسە";
                 btn.innerText = "چوونە ژوورەوە";
                 question.innerText = "هەژمارت نییە؟";
                 switchBtn.innerText = "دروستکردنی ئەکاونت";
+                emailGroup.style.display = "none"; // لە کاتی لۆگین تەنها یۆزەر و پاسۆرد داوای دەکرێت
             }
         }
 
         function handleAuth() {
+            const email = document.getElementById('email').value.trim();
             const user = document.getElementById('username').value.trim();
             const pass = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('errorMsg');
 
-            if (!user || !pass) {
-                errorMsg.innerText = "تکایە هەردوو خانە پڕ بکەرەوە!";
+            if (!user || !pass || (isSignup && !email)) {
+                errorMsg.innerText = "تکایە هەموو خانەکان بە دروستی پڕ بکەرەوە!";
                 errorMsg.style.display = 'block';
                 return;
             }
@@ -84,17 +101,20 @@
             let users = JSON.parse(localStorage.getItem('krd_users')) || [];
 
             if (isSignup) {
-                const exists = users.find(u => u.username === user);
+                // پشکنینی ئایا یۆزەر یان ئیمێڵ پێشتر هەیە
+                const exists = users.find(u => u.username === user || u.email === email);
                 if (exists) {
-                    errorMsg.innerText = "ئەم ناوی بەکارهێنەرە پێشتر هەڵگیراوە!";
+                    errorMsg.innerText = "ئەم ئیمێڵە یان ناوی بەکارهێنەرە پێشتر هەڵگیراوە!";
                     errorMsg.style.display = 'block';
                     return;
                 }
-                users.push({ username: user, password: pass });
+                // خەزنکردنی بەکارهێنەری نوێ لەگەڵ ئیمێڵدا
+                users.push({ email: email, username: user, password: pass });
                 localStorage.setItem('krd_users', JSON.stringify(users));
                 alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا لۆگین بکە.');
                 toggleMode();
             } else {
+                // پشکنینی لۆگین بە یۆزەر و پاسۆرد
                 const validUser = users.find(u => u.username === user && u.password === pass);
                 if (validUser || (users.length === 0 && user === "admin" && pass === "admin")) {
                     localStorage.setItem('current_user', user);
