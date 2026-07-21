@@ -27,11 +27,12 @@
             border-radius: 20px;
             padding: 12px 20px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start; /* ڕێکخستنی دوگمەی مێنیوو بۆ لای چەپ */
             align-items: center;
             margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.05);
             box-sizing: border-box;
+            direction: ltr; /* بۆ ئەوەی بکوژەکە چەپ بێت */
         }
 
         .menu-btn {
@@ -65,6 +66,8 @@
         /* بەشی سەری Welcome back */
         .welcome-top-section {
             padding: 0 5px;
+            direction: ltr; /* چاککردنی ئاڕاستەی دەقە ئینگلیزییەکان */
+            text-align: left;
         }
 
         .welcome-title {
@@ -88,6 +91,8 @@
             position: relative;
             box-sizing: border-box;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            direction: ltr; /* چاککردنی ئاڕاستەی ناو کارتەکە */
+            text-align: left;
         }
 
         .card-clicks {
@@ -128,11 +133,12 @@
             margin: 4px 0 16px 0;
             letter-spacing: -0.5px;
             word-break: break-all;
+            text-align: right; /* ژمارەکە دەچێتە لای ڕاست وەک وێنەکە */
         }
 
         .card-footer-row {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             align-items: center;
         }
 
@@ -157,6 +163,8 @@
             padding: 24px;
             box-sizing: border-box;
             margin-top: 10px;
+            direction: rtl; /* بۆ بەشە کوردییەکان بگەڕێتەوە لای ڕاست */
+            text-align: right;
         }
 
         .section-title {
@@ -241,6 +249,7 @@
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
+            direction: ltr;
         }
 
         .menu-overlay.active {
@@ -391,10 +400,10 @@
         <!-- کارتی Link Clicks -->
         <div class="stats-card card-clicks">
             <div class="card-header-row">
+                <span class="card-label">LINK CLICKS</span>
                 <div class="card-icon-box">
                     <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
                 </div>
-                <span class="card-label">LINK CLICKS</span>
             </div>
             <div class="card-main-value">7</div>
             <div class="card-footer-row">
