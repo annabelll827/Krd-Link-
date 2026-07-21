@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krd Link - تۆماربوون و لۆگین بە ئیمێڵ</title>
+    <title>Krd Link - دروستکردنی ئەکاونت و لۆگین</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -19,25 +19,27 @@
 
     <div class="container">
         <h1 id="formTitle">دروستکردنی ئەکاونت</h1>
-        <p class="bio" id="formSubtitle">ئیمێڵ و وشەی تێپەڕ بنووسە بۆ دەستپێکردن</p>
+        <p class="bio" id="formSubtitle">ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە</p>
 
-        <!-- خانەی ئیمێڵ (تەنها لە کاتی دروستکردنی ئەکاونت دەردەکەوێت یان بۆ هەردووکیان بەکاردێت) -->
+        <!-- ناوی ئەکاونت (Username) -->
+        <div class="form-group">
+            <label id="userLabel">ناوی ئەکاونت</label>
+            <input type="text" id="username" placeholder="ناوی ئەکاونت بنووسە...">
+        </div>
+
+        <!-- خانەی ئیمێڵ -->
         <div class="form-group" id="emailGroup">
-            <label>ئیمێڵ (Email)</label>
+            <label>ئیمێڵ</label>
             <input type="email" id="email" placeholder="example@domain.com">
         </div>
 
+        <!-- وشەنهێنی (Password) -->
         <div class="form-group">
-            <label>ناوی بەکارهێنەر (Username)</label>
-            <input type="text" id="username" placeholder="ناوی بەکارهێنەر...">
-        </div>
-
-        <div class="form-group">
-            <label>وشەی تێپەڕ (Password)</label>
+            <label>وشەنهێنی</label>
             <input type="password" id="password" placeholder="••••••••">
         </div>
 
-        <button class="btn" id="actionBtn" onclick="handleAuth()">تۆمارکردن</button>
+        <button class="btn" id="actionBtn" onclick="handleAuth()">دروست کردن</button>
         <div id="errorMsg" class="error-msg"></div>
 
         <div class="switch-text">
@@ -47,7 +49,6 @@
     </div>
 
     <script>
-        // پشکنین ئەگەر پێشتر لۆگینی کردبێت
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('current_user');
             if (currentUser) {
@@ -65,24 +66,27 @@
             const question = document.getElementById('switchQuestion');
             const switchBtn = document.getElementById('switchBtn');
             const emailGroup = document.getElementById('emailGroup');
+            const userLabel = document.getElementById('userLabel');
             const errorMsg = document.getElementById('errorMsg');
             
             errorMsg.style.display = 'none';
 
             if (isSignup) {
                 title.innerText = "دروستکردنی ئەکاونت";
-                subtitle.innerText = "ئیمێڵ و وشەی تێپەڕ بنووسە بۆ دەستپێکردن";
-                btn.innerText = "تۆمارکردن";
+                subtitle.innerText = "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە";
+                btn.innerText = "دروست کردن";
                 question.innerText = "هەژمارت هەیە؟";
                 switchBtn.innerText = "چوونە ژوورەوە";
                 emailGroup.style.display = "block";
+                userLabel.innerText = "ناوی ئەکاونت";
             } else {
                 title.innerText = "چوونە ژوورەوە";
-                subtitle.innerText = "ناوی بەکارهێنەر و وشەی تێپەڕ بنووسە";
+                subtitle.innerText = "بۆ چوونە ژوورەوە زانیارییەکانت بنووسە";
                 btn.innerText = "چوونە ژوورەوە";
                 question.innerText = "هەژمارت نییە؟";
-                switchBtn.innerText = "دروستکردنی ئەکاونت";
-                emailGroup.style.display = "none"; // لە کاتی لۆگین تەنها یۆزەر و پاسۆرد داوای دەکرێت
+                switchBtn.innerText = "دروست کردن";
+                emailGroup.style.display = "none";
+                userLabel.innerText = "ناوی بەکارهێنەر یان ئەکاونت";
             }
         }
 
@@ -93,7 +97,7 @@
             const errorMsg = document.getElementById('errorMsg');
 
             if (!user || !pass || (isSignup && !email)) {
-                errorMsg.innerText = "تکایە هەموو خانەکان بە دروستی پڕ بکەرەوە!";
+                errorMsg.innerText = "تکایە هەموو خانە پێویستەکان پڕ بکەرەوە!";
                 errorMsg.style.display = 'block';
                 return;
             }
@@ -101,26 +105,23 @@
             let users = JSON.parse(localStorage.getItem('krd_users')) || [];
 
             if (isSignup) {
-                // پشکنینی ئایا یۆزەر یان ئیمێڵ پێشتر هەیە
                 const exists = users.find(u => u.username === user || u.email === email);
                 if (exists) {
-                    errorMsg.innerText = "ئەم ئیمێڵە یان ناوی بەکارهێنەرە پێشتر هەڵگیراوە!";
+                    errorMsg.innerText = "ئەم ناو یان ئیمێڵە پێشتر دروست کراوە!";
                     errorMsg.style.display = 'block';
                     return;
                 }
-                // خەزنکردنی بەکارهێنەری نوێ لەگەڵ ئیمێڵدا
                 users.push({ email: email, username: user, password: pass });
                 localStorage.setItem('krd_users', JSON.stringify(users));
-                alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا لۆگین بکە.');
+                alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا دەتوانیت لۆگین بکەی.');
                 toggleMode();
             } else {
-                // پشکنینی لۆگین بە یۆزەر و پاسۆرد
                 const validUser = users.find(u => u.username === user && u.password === pass);
                 if (validUser || (users.length === 0 && user === "admin" && pass === "admin")) {
                     localStorage.setItem('current_user', user);
                     window.location.href = 'admin.html';
                 } else {
-                    errorMsg.innerText = "ناوی بەکارهێنەر یان وشەی تێپەڕ هەڵەیە!";
+                    errorMsg.innerText = "ناوی ئەکاونت یان وشەنهێنی هەڵەیە!";
                     errorMsg.style.display = 'block';
                 }
             }
