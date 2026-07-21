@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* شێوازی تایبەت بە ناوچەی سەرەوە (Header) */
         .site-header {
             width: 100%;
             max-width: 440px;
@@ -18,7 +17,7 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 12px 20px;
+            padding: 10px 20px;
             margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
@@ -26,7 +25,6 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
 
         .logo-icon {
@@ -43,7 +41,7 @@
             box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
 
-        .header-actions {
+        .header-left {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -67,6 +65,30 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
+        /* شێوازی بەشی زمان */
+        .lang-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            padding: 0 12px;
+            height: 40px;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+            transition: background 0.3s;
+        }
+
+        .lang-select option {
+            background: #1e293b;
+            color: #fff;
+        }
+
+        .lang-select:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         body {
             flex-direction: column;
             justify-content: flex-start;
@@ -83,15 +105,20 @@
 </head>
 <body>
 
-    <!-- بەشی سەرەوە (Header) وەک وێنەکە -->
+    <!-- بەشی سەرەوە (Header) کە دوگمەی مینیو و بەشی زمانی تێدایە -->
     <header class="site-header">
-        <div class="logo-area">
-            <div class="logo-icon">K</div>
-        </div>
-        <div class="header-actions">
+        <div class="header-left">
             <button class="menu-btn" onclick="alert('مینیو و ڕێکخستنەکان')">
                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
+            <select class="lang-select" onchange="changeLanguage(this.value)">
+                <option value="ku">کوردی</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+        
+        <div class="logo-area">
+            <div class="logo-icon">K</div>
         </div>
     </header>
 
@@ -164,6 +191,11 @@
                 emailGroup.style.display = "none";
                 userLabel.innerText = "ناوی بەکارهێنەر یان ئەکاونت";
             }
+        }
+
+        function changeLanguage(lang) {
+            // دەتوانیت لێرەدا کۆدی گۆڕینی زمانی سایتەکە زیاد بکەیت لە داهاتوودا
+            console.LANGUAGE = lang;
         }
 
         function handleAuth() {
