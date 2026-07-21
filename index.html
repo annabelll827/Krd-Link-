@@ -3,59 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krd Link - لینکەکانی من</title>
+    <title>Krd Link - چوونە ژوورەوە / تۆماربوون</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .login-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: #38bdf8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: opacity 0.2s;
-        }
-        .login-link:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=150" alt="Krd Link Logo" class="profile-img">
-        
-        <h1>Krd Link</h1>
-        <p class="bio">هەموو لینک و بەرنامەکانت لە یەک شوێن.</p>
+        <h1 id="formTitle">چوونە ژوورەوە</h1>
+        <p class="bio" id="formSubtitle">بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە</p>
 
-        <!-- لیستی لینکە سەرەکییەکان -->
-        <div class="links-list" id="linksContainer">
-            <a href="https://discord.com" target="_blank" class="link-card">
-                <i class="fa-solid fa-chevron-left arrow"></i>
-                <span>سێرڤەری دیسکۆرد</span>
-                <i class="fa-brands fa-discord left-icon" style="color: #5865F2;"></i>
-            </a>
-            <a href="https://github.com" target="_blank" class="link-card">
-                <i class="fa-solid fa-chevron-left arrow"></i>
-                <span>پڕۆژەکانی گیتهەب</span>
-                <i class="fa-brands fa-github left-icon"></i>
-            </a>
-            <a href="https://t.me" target="_blank" class="link-card">
-                <i class="fa-solid fa-chevron-left arrow"></i>
-                <span>کەناڵی تێلیگرام</span>
-                <i class="fa-brands fa-telegram left-icon" style="color: #24A1DE;"></i>
-            </a>
+        <div class="form-group">
+            <label>ناوی بەکارهێنەر (Username)</label>
+            <input type="text" id="username" placeholder="ناوی بەکارهێنەر بنووسە...">
         </div>
 
-        <a href="login.html" class="login-link"><i class="fa-solid fa-lock" style="margin-left: 5px;"></i>چوونە ژوورەوە بۆ داشبۆرد</a>
+        <div class="form-group">
+            <label>وشەی تێپەڕ (Password)</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
 
-        <footer>
-            Krd Link &copy; 2026
-        </footer>
+        <button class="btn" id="actionBtn" onclick="handleAuth()">چوونە ژوورەوە</button>
+        <div id="errorMsg" class="error-msg"></div>
+
+        <div class="switch-text">
+            <span id="switchQuestion">هەژمارت نییە؟</span> 
+            <a id="switchBtn" onclick="toggleMode()">دروستکردنی ئەکاونت</a>
+        </div>
     </div>
+
+    <script>
+        // پشکنین ئەگەر پێشتر یۆزەر لۆگینی کردبێت، ڕاستەوخۆ بچێتە داشبۆرد
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentUser = localStorage.getItem('current_user');
+            if (currentUser) {
+                window.location.href = 'admin.html';
+            }
+        });
+
+        let isSignup = false;
+
+        function toggleMode() {
+            isSignup = !isSignup;
+            const title = document.getElementById('formTitle');
+            const subtitle = document.getElementById('formSubtitle');
+            const btn = document.getElementById('actionBtn');
+            const question = document.getElementById('switchQuestion');
+            const switchBtn = document.getElementById('switchBtn');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            errorMsg.style.display = 'none';
+
+            if (isSignup) {
+                title.innerText = "دروستکردنی ئەکاونت";
+                subtitle.innerText = "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە";
+                btn.innerText = "تۆمارکردن";
+                question.innerText = "هەژمارت هەیە؟";
+                switchBtn.innerText = "چوونە ژوورەوە";
+            } else {
+                title.innerText = "چوونە ژوورەوە";
+                subtitle.innerText = "بۆ بەڕێوەبردنی لینکەکانت لۆگین بکە";
+                btn.innerText = "چوونە ژوورەوە";
+                question.innerText = "هەژمارت نییە؟";
+                switchBtn.innerText = "دروستکردنی ئەکاونت";
+            }
+        }
+
+        function handleAuth() {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!user || !pass) {
+                errorMsg.innerText = "تکایە هەردوو خانە پڕ بکەرەوە!";
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('krd_users')) || [];
+
+            if (isSignup) {
+                // پشکنینی بوونی یۆزەر
+                const exists = users.find(u => u.username === user);
+                if (exists) {
+                    errorMsg.innerText = "ئەم ناوی بەکارهێنەرە پێشتر هەڵگیراوە!";
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                // دروستکردنی ئەکاونتی نوێ
+                users.push({ username: user, password: pass });
+                localStorage.setItem('krd_users', JSON.stringify(users));
+                alert('ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا لۆگین بکە.');
+                toggleMode();
+            } else {
+                // پشکنینی زانیارییەکانی لۆگین (یاخود یۆزەری سەرەتایی admin / admin)
+                const validUser = users.find(u => u.username === user && u.password === pass);
+                if (validUser || (users.length === 0 && user === "admin" && pass === "admin")) {
+                    localStorage.setItem('current_user', user);
+                    window.location.href = 'admin.html';
+                } else {
+                    errorMsg.innerText = "ناوی بەکارهێنەر یان وشەی تێپەڕ هەڵەیە!";
+                    errorMsg.style.display = 'block';
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
