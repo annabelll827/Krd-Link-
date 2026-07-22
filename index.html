@@ -3,62 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Krd Link - دروستکردنی ئەکاونت و لۆگین</title>
+    <title>Krd Link - Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background-color: #000000 !important;
+            background-color: #000000;
             color: #ffffff;
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            padding-top: 30px;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
-        .container, .site-header {
-            background: #0a0a0a !important;
-            border: 1px solid rgba(139, 92, 246, 0.2) !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.05);
-        }
-
-        .site-header {
+        .dashboard-header {
             width: 100%;
             max-width: 440px;
+            background: #0a0a0a;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 10px 20px;
             margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.05);
+            box-sizing: border-box;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #a855f7, #7e22ce) !important;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-            color: #fff;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .menu-btn {
+        .menu-btn, .back-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
@@ -69,25 +45,326 @@
             align-items: center;
             color: #fff;
             cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+            text-decoration: none;
+        }
+
+        .menu-btn:hover, .back-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 440px;
+            background: #0a0a0a;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 28px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.05);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* --- بەشی پڕۆفایل و ئامارەکان --- */
+        .profile-card {
+            background: #0d0d0d;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .profile-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .profile-icon-box {
+            background: rgba(234, 179, 8, 0.12);
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #eab308;
+        }
+
+        .profile-title-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .profile-username-display {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: right;
+            margin-bottom: 10px;
+            direction: ltr;
+        }
+
+        .stats-card {
+            background: #07130f;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .stats-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .stats-icon-box {
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 14px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #10b981;
+        }
+
+        .stats-title-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .stats-number-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .stats-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .clicks-card {
+            background: #130a1c;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .clicks-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .clicks-icon-box {
+            background: rgba(168, 85, 247, 0.15);
+            border-radius: 14px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #a855f7;
+        }
+
+        .clicks-title-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .clicks-number-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .clicks-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        /* --- شێوازی پەڕەی Badge Overview --- */
+        .badge-view-container {
+            display: none;
+            width: 100%;
+            max-width: 440px;
+            background: #0a0a0a;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 28px;
+            padding: 25px;
+            box-sizing: border-box;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .badge-card {
+            background: #0d0d0d;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .badge-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+        }
+
+        .badge-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .badge-details p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .badge-action-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 8px 14px;
+            color: #94a3b8;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* --- دیزاین مێنیووی تەنیشت (Sidebar Menu Modal) --- */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .menu-modal {
+            background: #0a0a0a;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 28px;
+            width: 90%;
+            max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 25px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(139, 92, 246, 0.1);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-overlay.active .menu-modal {
+            transform: scale(1);
+        }
+
+        .menu-top-row {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            cursor: pointer;
             transition: background 0.3s;
         }
 
-        .menu-btn:hover {
-            background: rgba(139, 92, 246, 0.2);
+        .close-btn:hover {
+            background: rgba(248, 113, 113, 0.2);
+            color: #f87171;
+        }
+
+        .menu-lang-box {
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         .lang-select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            width: 100%;
+            background: transparent;
+            border: none;
             color: #fff;
-            padding: 0 12px;
-            height: 40px;
             font-family: 'Vazirmatn', sans-serif;
-            font-size: 0.9rem;
-            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
             outline: none;
-            transition: background 0.3s;
+            cursor: pointer;
         }
 
         .lang-select option {
@@ -95,205 +372,231 @@
             color: #fff;
         }
 
-        .lang-select:hover {
-            background: rgba(139, 92, 246, 0.2);
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #a855f7, #7e22ce) !important;
-            color: #fff !important;
-            border: none;
-            transition: opacity 0.3s, transform 0.2s;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        input {
-            background: #050505 !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            color: #fff !important;
-        }
-
-        input:focus {
-            border-color: #a855f7 !important;
-            outline: none;
-        }
-
-        .error-msg {
-            color: #f87171;
-            font-size: 0.85rem;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .switch-text a {
-            color: #a855f7 !important;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* بەشی پیشاندانی خاوەن سەحی شین (Verified Users) */
-        .verified-section {
-            margin-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 15px;
-            width: 100%;
-        }
-
-        .verified-title {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            margin-bottom: 12px;
-            font-weight: 600;
+        .menu-section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin: 18px 0 10px 0;
+            font-weight: 700;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
         }
 
-        .verified-list {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-            scrollbar-width: none; /* بۆ ناشاردنەوەی سکڕۆڵبار لە فایرفۆکس */
-        }
-
-        .verified-list::-webkit-scrollbar {
-            display: none; /* بۆ ناشاردنەوەی سکڕۆڵبار لە کرۆم و سەفاری */
-        }
-
-        .verified-user-card {
+        .menu-items-list {
             display: flex;
             flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 12px;
+            padding: 12px 16px;
             border-radius: 14px;
-            padding: 8px 12px;
-            min-width: 75px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        .verified-user-card:hover {
-            border-color: rgba(168, 85, 247, 0.5);
-            background: rgba(168, 85, 247, 0.05);
-        }
-
-        .verified-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
+        .menu-item.active {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(168, 85, 247, 0.4);
             color: #fff;
-            font-size: 1rem;
-            margin-bottom: 6px;
         }
 
-        .verified-name-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .verified-username {
-            font-size: 0.75rem;
-            color: #e2e8f0;
-            white-space: nowrap;
-        }
-
-        /* سەحی شین */
-        .blue-tick {
-            width: 12px;
-            height: 12px;
-            background-color: #3b82f6;
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
-            font-size: 8px;
+        }
+
+        .menu-item svg {
+            color: #a855f7;
         }
     </style>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="header-left">
-            <button class="menu-btn" onclick="alert('Menu & Settings')">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-            <select class="lang-select" id="langSelector" onchange="changeLanguage(this.value)">
-                <option value="ku">کوردی</option>
-                <option value="en">English</option>
-            </select>
-        </div>
-        
-        <div class="logo-area">
-            <div class="logo-icon">K</div>
-        </div>
+    <header class="dashboard-header">
+        <button class="menu-btn" onclick="toggleMenu()">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <a href="index.html" class="back-btn" title="گەڕانەوە بۆ لۆگین">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+        </a>
     </header>
 
-    <div class="container">
-        <h1 id="formTitle">دروستکردنی ئەکاونت</h1>
-        <p class="bio" id="formSubtitle">ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە</p>
-
-        <div class="form-group">
-            <label id="userLabel">ناوی ئەکاونت</label>
-            <input type="text" id="username" placeholder="ناوی ئەکاونت بنووسە...">
-        </div>
-
-        <div class="form-group" id="emailGroup">
-            <label id="emailLabel">ئیمێڵ</label>
-            <input type="email" id="email" placeholder="example@domain.com">
-        </div>
-
-        <div class="form-group">
-            <label id="passLabel">وشەنهێنی</label>
-            <input type="password" id="password" placeholder="••••••••">
-        </div>
-
-        <button class="btn" id="actionBtn" onclick="handleAuth()">دروست کردن</button>
-        <div id="errorMsg" class="error-msg"></div>
-
-        <div class="switch-text">
-            <span id="switchQuestion">هەژمارت هەیە؟</span> 
-            <a id="switchBtn" onclick="toggleMode()">چوونە ژوورەوە</a>
-        </div>
-
-        <!-- بەشی پیشاندانی خاوەن سەحی شین لە خوارەوە -->
-        <div class="verified-section">
-            <div class="verified-title" id="verifiedTitleText">ئەکاونتە باوەڕپێکراوەکان</div>
-            <div class="verified-list">
-                <!-- نموونەی ئەکاونتی باوەڕپێکراو -->
-                <div class="verified-user-card" onclick="alert('کورد لینک - پلاتفۆرمی فەرمی')">
-                    <div class="verified-avatar" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">K</div>
-                    <div class="verified-name-wrapper">
-                        <span class="verified-username">KrdLink</span>
-                        <span class="blue-tick">✓</span>
-                    </div>
+    <!-- داشبۆردی سەرەکی (Overview) -->
+    <div class="dashboard-container" id="overviewSection">
+        <div class="profile-card">
+            <div class="profile-top-row">
+                <div class="profile-icon-box">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
                 </div>
-                <div class="verified-user-card" onclick="alert('ئەکاونتی سەرپەرشتیار')">
-                    <div class="verified-avatar">A</div>
-                    <div class="verified-name-wrapper">
-                        <span class="verified-username">Admin</span>
-                        <span class="blue-tick">✓</span>
-                    </div>
+                <div class="profile-title-tag">YOUR PROFILE</div>
+            </div>
+            <div class="profile-username-display" id="displayUsername">username</div>
+        </div>
+
+        <div class="stats-card">
+            <div class="stats-top-row">
+                <div class="stats-icon-box">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
                 </div>
-                <div class="verified-user-card" onclick="alert('ئەکاونتی پشتیوانی')">
-                    <div class="verified-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">S</div>
-                    <div class="verified-name-wrapper">
-                        <span class="verified-username">Support</span>
-                        <span class="blue-tick">✓</span>
-                    </div>
+                <div class="stats-title-tag">PROFAIL VIUW</div>
+            </div>
+            <div class="stats-number-row">
+                <div class="stats-number" id="profileViewsCount">0</div>
+            </div>
+        </div>
+
+        <div class="clicks-card">
+            <div class="clicks-top-row">
+                <div class="clicks-icon-box">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
+                    </svg>
+                </div>
+                <div class="clicks-title-tag">LINK CLICKS</div>
+            </div>
+            <div class="clicks-number-row">
+                <div class="clicks-number" id="linkClicksCount">0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- بەشی Badge Overview -->
+    <div class="badge-view-container" id="badgeSection">
+        <!-- Ceo Badge -->
+        <div class="badge-card">
+            <div class="badge-info">
+                <div class="badge-icon" style="background: rgba(234, 179, 8, 0.15); color: #eab308;">
+                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3a1 1 0 01-1 1H6a1 1 0 01-1-1v-1h14v1z"/></svg>
+                </div>
+                <div class="badge-details">
+                    <h4>Ceo</h4>
+                    <p>Locked</p>
+                </div>
+            </div>
+            <button class="badge-action-btn">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Not available
+            </button>
+        </div>
+
+        <!-- Premium Badge -->
+        <div class="badge-card">
+            <div class="badge-info">
+                <div class="badge-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="badge-details">
+                    <h4>Premium</h4>
+                    <p>Premium badge</p>
+                </div>
+            </div>
+            <button class="badge-action-btn">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Not available
+            </button>
+        </div>
+
+        <!-- Verifay Badge -->
+        <div class="badge-card">
+            <div class="badge-info">
+                <div class="badge-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                </div>
+                <div class="badge-details">
+                    <h4>Verifay</h4>
+                    <p>Locked</p>
+                </div>
+            </div>
+            <button class="badge-action-btn">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Not available
+            </button>
+        </div>
+    </div>
+
+    <!-- پەنجەرەی مێنیووی تەنیشت (Sidebar Menu Modal) -->
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenuOutside(event)">
+        <div class="menu-modal">
+            <div class="menu-top-row">
+                <button class="close-btn" onclick="toggleMenu()">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="menu-lang-box">
+                <select class="lang-select" id="languageSelect">
+                    <option value="ku">کوردی (Kurdish)</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <!-- بەشی Overview -->
+            <div class="menu-section-label">
+                <span>Overview</span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="menu-items-list">
+                <div class="menu-item active" id="menuOverview" onclick="switchSection('overview')">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    <span>Overview</span>
+                </div>
+                <div class="menu-item" id="menuBadge" onclick="switchSection('badge')">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <span>Badge Overview</span>
+                </div>
+                <div class="menu-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <span>Analysis</span>
+                </div>
+            </div>
+
+            <!-- بەشی SOCIAL -->
+            <div class="menu-section-label">
+                <span>SOCIAL</span>
+            </div>
+            <div class="menu-items-list">
+                <div class="menu-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                    <span>Links</span>
+                </div>
+            </div>
+
+            <!-- بەشی ACCOUNT -->
+            <div class="menu-section-label">
+                <span>ACCOUNT</span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+            </div>
+            <div class="menu-items-list">
+                <div class="menu-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <span>Settings</span>
+                </div>
+                <div class="menu-item">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <span>Premium</span>
                 </div>
             </div>
         </div>
@@ -302,147 +605,53 @@
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const currentUser = localStorage.getItem('current_user');
-            if (currentUser) {
-                window.location.href = 'admin.html';
-            }
-        });
-
-        let isSignup = true;
-        let currentLang = 'ku';
-
-        const translations = {
-            ku: {
-                titleSignup: "دروستکردنی ئەکاونت",
-                subSignup: "ئەکاونتێکی نوێ دروست بکە بۆ پلاتفۆرمەکە",
-                titleLogin: "چوونە ژوورەوە",
-                subLogin: "بۆ چوونە ژوورەوە زانیارییەکانت بنووسە",
-                userLabelSignup: "ناوی ئەکاونت",
-                userLabelLogin: "ناوی بەکارهێنەر یان ئەکاونت",
-                userPlaceholderSignup: "ناوی ئەکاونت بنووسە...",
-                userPlaceholderLogin: "ناوی بەکارهێنەر بنووسە...",
-                emailLabel: "ئیمێڵ",
-                emailPlaceholder: "example@domain.com",
-                passLabel: "وشەنهێنی",
-                passPlaceholder: "••••••••",
-                btnSignup: "دروست کردن",
-                btnLogin: "چوونە ژوورەوە",
-                qHasAccount: "هەژمارت هەیە؟",
-                qNoAccount: "هەژمارت نییە؟",
-                linkLogin: "چوونە ژوورەوە",
-                linkSignup: "دروست کردن",
-                verifiedTitle: "ئەکاونتە باوەڕپێکراوەکان",
-                errFields: "تکایە هەموو خانە پێویستەکان پڕ بکەرەوە!",
-                errExists: "ئەم ناو یان ئیمێڵە پێشتر دروست کراوە!",
-                errLogin: "ناوی ئەکاونت یان وشەنهێنی هەڵەیە!",
-                successMsg: "ئەکاونتەکەت بە سەرکەوتوویی دروست کرا! ئێستا دەتوانیت لۆگین بکەی."
-            },
-            en: {
-                titleSignup: "Create Account",
-                subSignup: "Create a new account for the platform",
-                titleLogin: "Login",
-                subLogin: "Enter your credentials to login",
-                userLabelSignup: "Account Name",
-                userLabelLogin: "Username or Account",
-                userPlaceholderSignup: "Enter account name...",
-                userPlaceholderLogin: "Enter username...",
-                emailLabel: "Email",
-                emailPlaceholder: "example@domain.com",
-                passLabel: "Password",
-                passPlaceholder: "••••••••",
-                btnSignup: "Create",
-                btnLogin: "Login",
-                qHasAccount: "Already have an account?",
-                qNoAccount: "Don't have an account?",
-                linkLogin: "Login",
-                linkSignup: "Create",
-                verifiedTitle: "Verified Accounts",
-                errFields: "Please fill in all required fields!",
-                errExists: "This name or email already exists!",
-                errLogin: "Incorrect account name or password!",
-                successMsg: "Account created successfully! You can now log in."
-            }
-        };
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            const t = translations[lang];
-            const htmlTag = document.getElementById('htmlTag');
-
-            if (lang === 'en') {
-                htmlTag.setAttribute('dir', 'ltr');
-                htmlTag.setAttribute('lang', 'en');
-            } else {
-                htmlTag.setAttribute('dir', 'rtl');
-                htmlTag.setAttribute('lang', 'ku');
-            }
-
-            if (isSignup) {
-                document.getElementById('formTitle').innerText = t.titleSignup;
-                document.getElementById('formSubtitle').innerText = t.subSignup;
-                document.getElementById('actionBtn').innerText = t.btnSignup;
-                document.getElementById('userLabel').innerText = t.userLabelSignup;
-                document.getElementById('username').placeholder = t.userPlaceholderSignup;
-                document.getElementById('switchQuestion').innerText = t.qHasAccount;
-                document.getElementById('switchBtn').innerText = t.linkLogin;
-            } else {
-                document.getElementById('formTitle').innerText = t.titleLogin;
-                document.getElementById('formSubtitle').innerText = t.subLogin;
-                document.getElementById('actionBtn').innerText = t.btnLogin;
-                document.getElementById('userLabel').innerText = t.userLabelLogin;
-                document.getElementById('username').placeholder = t.userPlaceholderLogin;
-                document.getElementById('switchQuestion').innerText = t.qNoAccount;
-                document.getElementById('switchBtn').innerText = t.linkSignup;
-            }
-
-            document.getElementById('emailLabel').innerText = t.emailLabel;
-            document.getElementById('email').placeholder = t.emailPlaceholder;
-            document.getElementById('passLabel').innerText = t.passLabel;
-            document.getElementById('password').placeholder = t.passPlaceholder;
-            document.getElementById('verifiedTitleText').innerText = t.verifiedTitle;
-        }
-
-        function toggleMode() {
-            isSignup = !isSignup;
-            changeLanguage(currentLang);
-            document.getElementById('errorMsg').style.display = 'none';
-            document.getElementById('emailGroup').style.display = isSignup ? "block" : "none";
-        }
-
-        function handleAuth() {
-            const email = document.getElementById('email').value.trim();
-            const user = document.getElementById('username').value.trim();
-            const pass = document.getElementById('password').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-            const t = translations[currentLang];
-
-            if (!user || !pass || (isSignup && !email)) {
-                errorMsg.innerText = t.errFields;
-                errorMsg.style.display = 'block';
+            if (!currentUser) {
+                window.location.href = 'index.html';
                 return;
             }
+            
+            document.getElementById('displayUsername').innerText = currentUser;
 
-            let users = JSON.parse(localStorage.getItem('krd_users')) || [];
+            const viewKey = 'profile_views_' + currentUser;
+            let currentViews = parseInt(localStorage.getItem(viewKey)) || 0;
+            currentViews += 1;
+            localStorage.setItem(viewKey, currentViews);
+            document.getElementById('profileViewsCount').innerText = currentViews;
 
-            if (isSignup) {
-                const exists = users.find(u => u.username === user || u.email === email);
-                if (exists) {
-                    errorMsg.innerText = t.errExists;
-                    errorMsg.style.display = 'block';
-                    return;
-                }
-                users.push({ email: email, username: user, password: pass });
-                localStorage.setItem('krd_users', JSON.stringify(users));
-                alert(t.successMsg);
-                toggleMode();
-            } else {
-                const validUser = users.find(u => u.username === user && u.password === pass);
-                if (validUser || (users.length === 0 && user === "admin" && pass === "admin")) {
-                    localStorage.setItem('current_user', user);
-                    window.location.href = 'admin.html';
-                } else {
-                    errorMsg.innerText = t.errLogin;
-                    errorMsg.style.display = 'block';
-                }
+            const clicksKey = 'link_clicks_' + currentUser;
+            let currentClicks = parseInt(localStorage.getItem(clicksKey)) || 0;
+            document.getElementById('linkClicksCount').innerText = currentClicks;
+        });
+
+        function switchSection(section) {
+            const overviewSec = document.getElementById('overviewSection');
+            const badgeSec = document.getElementById('badgeSection');
+            const menuOverview = document.getElementById('menuOverview');
+            const menuBadge = document.getElementById('menuBadge');
+
+            if (section === 'overview') {
+                overviewSec.style.display = 'flex';
+                badgeSec.style.display = 'none';
+                menuOverview.classList.add('active');
+                menuBadge.classList.remove('active');
+            } else if (section === 'badge') {
+                overviewSec.style.display = 'none';
+                badgeSec.style.display = 'flex';
+                menuBadge.classList.add('active');
+                menuOverview.classList.remove('active');
+            }
+            toggleMenu();
+        }
+
+        function toggleMenu() {
+            const overlay = document.getElementById('menuOverlay');
+            overlay.classList.toggle('active');
+        }
+
+        function closeMenuOutside(event) {
+            const overlay = document.getElementById('menuOverlay');
+            if (event.target === overlay) {
+                overlay.classList.remove('active');
             }
         }
     </script>
