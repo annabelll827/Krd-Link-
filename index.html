@@ -119,7 +119,6 @@
         
         .number-display { font-size: 2.8rem; line-height: 1; }
 
-        /* شێوازی پەڕەی Badge Overview */
         .badge-view-container {
             display: none;
             width: 100%;
@@ -180,14 +179,9 @@
             font-family: 'Vazirmatn', sans-serif;
             font-size: 0.82rem;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
             cursor: pointer;
-            text-decoration: none;
         }
 
-        /* --- دیزاین مێنیووی تەنیشت (Sidebar Menu Modal) --- */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -246,12 +240,6 @@
             align-items: center;
             color: #fff;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .close-btn:hover {
-            background: rgba(248, 113, 113, 0.2);
-            color: #f87171;
         }
 
         .menu-lang-box {
@@ -289,9 +277,6 @@
             color: #64748b;
             margin: 18px 0 10px 0;
             font-weight: 700;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .menu-items-list {
@@ -335,14 +320,13 @@
 <body>
 
     <header class="dashboard-header">
-        <!-- دوگمەی مێنیوو (سێ خطەکە) -->
         <button class="menu-btn" onclick="toggleMenu()">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
 
-        <!-- دوگمەی دەرچوون (چۆنە دەرەوە بە button بۆ دڵنیابوون لە کارکردنی) -->
+        <!-- دوگمەی چوونە دەرەوە کە بە دروستی کار دەکات -->
         <button class="logout-icon-btn" title="چوونە دەرەوە" onclick="logoutUser()">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
@@ -350,7 +334,6 @@
         </button>
     </header>
 
-    <!-- داشبۆردی سەرەکی (Overview) -->
     <div class="dashboard-container" id="overviewSection">
         <div class="profile-card">
             <div class="profile-top-row">
@@ -374,7 +357,7 @@
                 </div>
                 <div class="title-tag">PROFAIL VIUW</div>
             </div>
-            <div class="number-display" id="profileViewsCount">0</div>
+            <div class="number-display" id="profileViewsCount">187</div>
         </div>
 
         <div class="clicks-card">
@@ -386,11 +369,10 @@
                 </div>
                 <div class="title-tag">LINK CLICKS</div>
             </div>
-            <div class="number-display" id="linkClicksCount">0</div>
+            <div class="number-display" id="linkClicksCount">13</div>
         </div>
     </div>
 
-    <!-- بەشی Badge Overview -->
     <div class="badge-view-container" id="badgeSection">
         <div class="badge-card">
             <div class="badge-info">
@@ -404,35 +386,8 @@
             </div>
             <button class="badge-action-btn">Not available</button>
         </div>
-
-        <div class="badge-card">
-            <div class="badge-info">
-                <div class="badge-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">
-                    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                </div>
-                <div class="badge-details">
-                    <h4>Premium</h4>
-                    <p>Premium badge</p>
-                </div>
-            </div>
-            <button class="badge-action-btn">Not available</button>
-        </div>
-
-        <div class="badge-card">
-            <div class="badge-info">
-                <div class="badge-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
-                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                </div>
-                <div class="badge-details">
-                    <h4>Verifay</h4>
-                    <p>Locked</p>
-                </div>
-            </div>
-            <button class="badge-action-btn">Not available</button>
-        </div>
     </div>
 
-    <!-- پەنجەرەی مێنیووی تەنیشت (Sidebar Menu Modal) -->
     <div class="menu-overlay" id="menuOverlay" onclick="closeMenuOutside(event)">
         <div class="menu-modal">
             <div class="menu-top-row">
@@ -450,10 +405,7 @@
                 </select>
             </div>
 
-            <!-- بەشی Overview -->
-            <div class="menu-section-label">
-                <span>Overview</span>
-            </div>
+            <div class="menu-section-label">Overview</div>
             <div class="menu-items-list">
                 <div class="menu-item active" id="menuOverview" onclick="switchSection('overview')">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
@@ -462,36 +414,6 @@
                 <div class="menu-item" id="menuBadge" onclick="switchSection('badge')">
                     <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     <span>Badge Overview</span>
-                </div>
-                <div class="menu-item">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    <span>Analysis</span>
-                </div>
-            </div>
-
-            <!-- بەشی SOCIAL -->
-            <div class="menu-section-label">
-                <span>SOCIAL</span>
-            </div>
-            <div class="menu-items-list">
-                <div class="menu-item">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                    <span>Links</span>
-                </div>
-            </div>
-
-            <!-- بەشی ACCOUNT -->
-            <div class="menu-section-label">
-                <span>ACCOUNT</span>
-            </div>
-            <div class="menu-items-list">
-                <div class="menu-item">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    <span>Settings</span>
-                </div>
-                <div class="menu-item">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    <span>Premium</span>
                 </div>
             </div>
         </div>
@@ -502,14 +424,22 @@
             const currentUser = localStorage.getItem('current_user') || 'Hammmm';
             document.getElementById('displayUsername').innerText = currentUser;
 
+            // پشکنین و هێنانی بڕی Profile Views
             let viewsKey = 'profile_views_' + currentUser;
-            let currentViews = parseInt(localStorage.getItem(viewsKey)) || 187;
-            localStorage.setItem(viewsKey, currentViews);
+            let currentViews = localStorage.getItem(viewsKey);
+            if (currentViews === null) {
+                currentViews = 187; // بڕی بنەڕەتی
+                localStorage.setItem(viewsKey, currentViews);
+            }
             document.getElementById('profileViewsCount').innerText = currentViews;
 
+            // پشکنین و هێنانی بڕی Link Clicks
             let clicksKey = 'link_clicks_' + currentUser;
-            let currentClicks = parseInt(localStorage.getItem(clicksKey)) || 13;
-            localStorage.setItem(clicksKey, currentClicks);
+            let currentClicks = localStorage.getItem(clicksKey);
+            if (currentClicks === null) {
+                currentClicks = 13; // بڕی بنەڕەتی
+                localStorage.setItem(clicksKey, currentClicks);
+            }
             document.getElementById('linkClicksCount').innerText = currentClicks;
         });
 
@@ -539,14 +469,12 @@
         }
 
         function toggleMenu() {
-            const overlay = document.getElementById('menuOverlay');
-            overlay.classList.toggle('active');
+            document.getElementById('menuOverlay').classList.toggle('active');
         }
 
         function closeMenuOutside(event) {
-            const overlay = document.getElementById('menuOverlay');
-            if (event.target === overlay) {
-                overlay.classList.remove('active');
+            if (event.target === document.getElementById('menuOverlay')) {
+                document.getElementById('menuOverlay').classList.remove('active');
             }
         }
     </script>
