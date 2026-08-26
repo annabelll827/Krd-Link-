@@ -36,11 +36,31 @@
 
         .auth-container h2 {
             font-size: 2.2em;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             text-align: center;
             color: #4f46e5;
             font-weight: 800;
             letter-spacing: -0.5px;
+        }
+
+        /* Modern inline Error Message Alert */
+        .alert-msg {
+            display: none;
+            background-color: #fef2f2;
+            color: #ef4444;
+            border: 1px solid #fca5a5;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .input-group {
@@ -300,6 +320,7 @@
         <!-- Log In Form -->
         <div class="form-box active" id="login-box">
             <h2>Log In</h2>
+            <div class="alert-msg" id="login-alert"></div>
             <form id="login-form">
                 <div class="input-group">
                     <label>Email Address</label>
@@ -345,6 +366,9 @@
         <!-- Sign Up Form -->
         <div class="form-box" id="signup-box">
             <h2>Sign Up</h2>
+            <!-- Inline Alert Box for Signup Errors -->
+            <div class="alert-msg" id="signup-alert"></div>
+            
             <form id="signup-form">
                 <div class="input-group">
                     <label>Full Name</label>
@@ -394,6 +418,7 @@
         <!-- Forgot Password Form -->
         <div class="form-box" id="forgot-box">
             <h2>Reset Password</h2>
+            <div class="alert-msg" id="forgot-alert"></div>
             
             <form id="passwords-step" class="step-box active">
                 <div class="input-group">
@@ -461,7 +486,6 @@
     </div>
 
     <script>
-        // Storage Keys
         const USERS_STORAGE_KEY = 'zagros_ai_users';
 
         function getUsers() {
@@ -472,7 +496,18 @@
             localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
         }
 
+        function showAlert(elementId, message) {
+            const alertBox = document.getElementById(elementId);
+            alertBox.textContent = message;
+            alertBox.style.display = 'block';
+        }
+
+        function hideAlerts() {
+            document.querySelectorAll('.alert-msg').forEach(el => el.style.display = 'none');
+        }
+
         function showForm(formType) {
+            hideAlerts();
             document.getElementById('passwords-step').classList.add('active');
             document.getElementById('code-step').classList.remove('active');
 
@@ -504,9 +539,10 @@
             document.getElementById('zagros-section').style.display = 'flex';
         }
 
-        // SIGN UP Validation Logic
+        // SIGN UP Logic with Clean Inline Alert
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            hideAlerts();
             
             const name = document.getElementById('signup-name').value.trim();
             const email = document.getElementById('signup-email').value.trim().toLowerCase();
@@ -514,55 +550,48 @@
 
             const users = getUsers();
 
-            // Check if email already exists
             if (users[email]) {
-                alert('This email is already registered! Please log in.');
-                showForm('login');
+                showAlert('signup-alert', 'This email is already registered.');
                 return;
             }
 
-            // Save new user
-            users[email] = {
-                name: name,
-                password: password
-            };
-
+            users[email] = { name: name, password: password };
             saveUsers(users);
             openZagrosPage(name);
         });
 
-        // LOG IN Validation Logic
+        // LOG IN Logic with Inline Alert
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            hideAlerts();
 
             const email = document.getElementById('login-email').value.trim().toLowerCase();
             const password = document.getElementById('login-password').value;
 
             const users = getUsers();
 
-            // Check if user exists and password matches
             if (!users[email]) {
-                alert('No account found with this email! Please sign up first.');
+                showAlert('login-alert', 'No account found with this email.');
                 return;
             }
 
             if (users[email].password !== password) {
-                alert('Incorrect password! Please try again.');
+                showAlert('login-alert', 'Incorrect password. Please try again.');
                 return;
             }
 
             openZagrosPage(users[email].name);
         });
 
-        // Google Mock Login
         function handleGoogleLogin() {
             openZagrosPage('Google User');
         }
 
-        // Password Reset logic with user updates
         let pendingResetEmail = '';
         document.getElementById('passwords-step').addEventListener('submit', function(e) {
             e.preventDefault();
+            hideAlerts();
+
             const email = document.getElementById('reset-email').value.trim().toLowerCase();
             const newPass = document.getElementById('new-pass').value;
             const confirmPass = document.getElementById('confirm-pass').value;
@@ -570,12 +599,12 @@
             const users = getUsers();
 
             if (!users[email]) {
-                alert('This email is not registered!');
+                showAlert('forgot-alert', 'This email is not registered.');
                 return;
             }
 
             if (newPass !== confirmPass) {
-                alert("Passwords do not match!");
+                showAlert('forgot-alert', 'Passwords do not match.');
                 return;
             }
 
@@ -592,8 +621,8 @@
                 const users = getUsers();
                 users[pendingResetEmail].password = newPass;
                 saveUsers(users);
-                alert("Password updated successfully! Please login with your new password.");
                 showForm('login');
+                showAlert('login-alert', 'Password updated successfully. Please log in.');
             }
         });
     </script>
