@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zagros AI - All White</title>
+    <title>Zagros AI - White Background</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,35 +13,34 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Pure White Background for Everything */
+        /* Pure White Background for the Page Behind Login */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #ffffff !important;
-            color: #000000;
+            background-color: #ffffff !important;
+            color: #ffffff;
         }
 
-        /* 100% White Auth Card */
+        /* Dark Login Card Container */
         .auth-container {
-            width: 380px;
-            padding: 35px 30px;
-            background: #ffffff !important;
+            width: 360px;
+            padding: 32px 24px;
+            background-color: #23252a;
             border-radius: 20px;
-            border: 1.5px solid #e4e4e7;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         .form-box { display: none; }
         .form-box.active { display: block; }
 
         .auth-container h2 {
-            font-size: 1.8em;
-            margin-bottom: 25px;
+            font-size: 2em;
+            margin-bottom: 24px;
             text-align: center;
-            color: #000000;
-            font-weight: 800;
+            color: #ffffff;
+            font-weight: 700;
         }
 
         .input-group {
@@ -52,30 +51,23 @@
             display: block;
             margin-bottom: 8px;
             font-size: 0.88em;
-            color: #18181b;
+            color: #e4e4e7;
             font-weight: 600;
         }
 
-        /* White Input Fields */
         .input-group input {
             width: 100%;
             padding: 12px 16px;
-            background: #ffffff !important;
-            border: 1.5px solid #e4e4e7;
+            background-color: #000000;
+            border: 1px solid #3f3f46;
             outline: none;
             border-radius: 12px;
-            color: #000000;
+            color: #ffffff;
             font-size: 0.95em;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .input-group input:focus {
-            border-color: #000000;
         }
 
         .input-group input::placeholder {
-            color: #a1a1aa;
+            color: #71717a;
         }
 
         .options {
@@ -86,56 +78,54 @@
         }
 
         .options a {
-            color: #000000;
+            color: #ffffff;
             text-decoration: underline;
             cursor: pointer;
             font-weight: 600;
         }
 
-        /* White Submit Button */
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background: #ffffff !important;
-            border: 1.5px solid #000000;
+            background-color: #000000;
+            border: 1.5px solid #ffffff;
             border-radius: 12px;
-            color: #000000;
+            color: #ffffff;
             font-size: 1em;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .btn-submit:hover {
-            background: #f4f4f5 !important;
+            background-color: #18181b;
         }
 
         .divider {
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 20px 0;
-            color: #71717a;
-            font-size: 0.8em;
+            margin: 22px 0;
+            color: #a1a1aa;
+            font-size: 0.75em;
             font-weight: 700;
         }
 
         .divider::before, .divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1.5px solid #e4e4e7;
+            border-bottom: 1px solid #3f3f46;
         }
 
         .divider span { padding: 0 10px; }
 
-        /* White Google Button */
         .btn-google {
             width: 100%;
             padding: 12px;
-            background: #ffffff !important;
-            border: 1.5px solid #e4e4e7;
+            background-color: #1c1d22;
+            border: 1px solid #3f3f46;
             border-radius: 12px;
-            color: #000000;
+            color: #ffffff;
             font-size: 0.95em;
             font-weight: 600;
             display: flex;
@@ -143,10 +133,7 @@
             justify-content: center;
             gap: 10px;
             cursor: pointer;
-            transition: 0.2s ease;
         }
-
-        .btn-google:hover { background: #f4f4f5 !important; }
 
         .btn-google svg { width: 18px; height: 18px; }
 
@@ -154,11 +141,11 @@
             text-align: center;
             margin-top: 22px;
             font-size: 0.88em;
-            color: #52525b;
+            color: #a1a1aa;
         }
 
         .switch-link a {
-            color: #000000;
+            color: #ffffff;
             text-decoration: underline;
             cursor: pointer;
             font-weight: 700;
@@ -167,7 +154,7 @@
         .step-box { display: none; }
         .step-box.active { display: block; }
 
-        /* Pure White Main Zagros Section */
+        /* Main App Interface Style */
         .zagros-container {
             display: none;
             width: 100%;
@@ -209,11 +196,10 @@
         .prompt-box {
             width: 100%;
             max-width: 500px;
-            background: #ffffff !important;
-            border: 1.5px solid #e4e4e7;
+            background: #23252a;
             border-radius: 20px;
             padding: 16px 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             margin: auto 0;
         }
 
@@ -222,14 +208,14 @@
             background: transparent;
             border: none;
             outline: none;
-            color: #000000;
+            color: #ffffff;
             font-size: 1.05em;
             font-weight: 500;
             margin-bottom: 20px;
         }
 
         .prompt-input::placeholder {
-            color: #a1a1aa;
+            color: #71717a;
         }
 
         .prompt-actions {
@@ -241,7 +227,7 @@
         .action-btn {
             background: transparent;
             border: none;
-            color: #000000;
+            color: #ffffff;
             font-size: 1.2em;
             cursor: pointer;
             display: flex;
@@ -260,7 +246,7 @@
 </head>
 <body>
 
-    <!-- Auth Section -->
+    <!-- Auth Container -->
     <div class="auth-container" id="auth-section">
         <!-- Log In Form -->
         <div class="form-box active" id="login-box">
@@ -419,7 +405,6 @@
             openZagrosPage();
         });
 
-        // Forgot Password Logic
         document.getElementById('passwords-step').addEventListener('submit', function(e) {
             e.preventDefault();
             const newPass = document.getElementById('new-pass').value;
