@@ -22,7 +22,6 @@
             color: #0f172a;
         }
 
-        /* Modern Card with Purple Accent Border */
         .auth-container {
             width: 380px;
             padding: 40px 28px;
@@ -56,7 +55,6 @@
             font-weight: 700;
         }
 
-        /* Input Wrappers with Icons */
         .input-wrapper {
             position: relative;
             display: flex;
@@ -119,7 +117,6 @@
             text-decoration: underline;
         }
 
-        /* Vibrant Gradient Submit Button */
         .btn-submit {
             width: 100%;
             padding: 14px;
@@ -201,7 +198,6 @@
         .step-box { display: none; }
         .step-box.active { display: block; }
 
-        /* Main App Interface Style */
         .zagros-container {
             display: none;
             width: 100%;
@@ -222,7 +218,6 @@
             margin-top: 20px;
         }
 
-        /* Purple Brand Text without Logo Icon */
         .brand-logo {
             display: flex;
             align-items: center;
@@ -232,7 +227,6 @@
             color: #4f46e5;
         }
 
-        /* Welcome Text Styling */
         .welcome-title {
             font-size: 2.2em;
             font-weight: 800;
@@ -332,7 +326,7 @@
 
                 <div class="divider"><span>OR</span></div>
 
-                <button type="button" class="btn-google" onclick="openZagrosPage('User')">
+                <button type="button" class="btn-google" onclick="handleGoogleLogin()">
                     <svg viewBox="0 0 24 24">
                         <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
                         <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
@@ -364,7 +358,7 @@
                     <label>Email Address</label>
                     <div class="input-wrapper">
                         <i class="fa-regular fa-envelope input-icon"></i>
-                        <input type="email" placeholder="Enter your email" required>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
                     </div>
                 </div>
                 
@@ -381,7 +375,7 @@
 
                 <div class="divider"><span>OR</span></div>
 
-                <button type="button" class="btn-google" onclick="openZagrosPage('User')">
+                <button type="button" class="btn-google" onclick="handleGoogleLogin()">
                     <svg viewBox="0 0 24 24">
                         <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
                         <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
@@ -402,6 +396,14 @@
             <h2>Reset Password</h2>
             
             <form id="passwords-step" class="step-box active">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                        <input type="email" id="reset-email" placeholder="Enter your registered email" required>
+                    </div>
+                </div>
+
                 <div class="input-group">
                     <label>New Password</label>
                     <div class="input-wrapper">
@@ -447,7 +449,6 @@
             </div>
         </div>
 
-        <!-- Dynamic Welcome Heading -->
         <h1 class="welcome-title">Welcome, <span id="user-display-name">User</span></h1>
 
         <div class="prompt-box">
@@ -460,6 +461,17 @@
     </div>
 
     <script>
+        // Storage Keys
+        const USERS_STORAGE_KEY = 'zagros_ai_users';
+
+        function getUsers() {
+            return JSON.parse(localStorage.getItem(USERS_STORAGE_KEY)) || {};
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+        }
+
         function showForm(formType) {
             document.getElementById('passwords-step').classList.add('active');
             document.getElementById('code-step').classList.remove('active');
@@ -492,37 +504,97 @@
             document.getElementById('zagros-section').style.display = 'flex';
         }
 
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const emailInput = document.getElementById('login-email').value;
-            const extractedName = emailInput.split('@')[0];
-            openZagrosPage(extractedName);
-        });
-
+        // SIGN UP Validation Logic
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const fullName = document.getElementById('signup-name').value;
-            openZagrosPage(fullName);
+            
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim().toLowerCase();
+            const password = document.getElementById('signup-password').value;
+
+            const users = getUsers();
+
+            // Check if email already exists
+            if (users[email]) {
+                alert('This email is already registered! Please log in.');
+                showForm('login');
+                return;
+            }
+
+            // Save new user
+            users[email] = {
+                name: name,
+                password: password
+            };
+
+            saveUsers(users);
+            openZagrosPage(name);
         });
 
+        // LOG IN Validation Logic
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+
+            const users = getUsers();
+
+            // Check if user exists and password matches
+            if (!users[email]) {
+                alert('No account found with this email! Please sign up first.');
+                return;
+            }
+
+            if (users[email].password !== password) {
+                alert('Incorrect password! Please try again.');
+                return;
+            }
+
+            openZagrosPage(users[email].name);
+        });
+
+        // Google Mock Login
+        function handleGoogleLogin() {
+            openZagrosPage('Google User');
+        }
+
+        // Password Reset logic with user updates
+        let pendingResetEmail = '';
         document.getElementById('passwords-step').addEventListener('submit', function(e) {
             e.preventDefault();
+            const email = document.getElementById('reset-email').value.trim().toLowerCase();
             const newPass = document.getElementById('new-pass').value;
             const confirmPass = document.getElementById('confirm-pass').value;
+
+            const users = getUsers();
+
+            if (!users[email]) {
+                alert('This email is not registered!');
+                return;
+            }
 
             if (newPass !== confirmPass) {
                 alert("Passwords do not match!");
                 return;
             }
 
+            pendingResetEmail = email;
             document.getElementById('passwords-step').classList.remove('active');
             document.getElementById('code-step').classList.add('active');
         });
 
         document.getElementById('code-step').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert("Password updated successfully!");
-            showForm('login');
+            const newPass = document.getElementById('new-pass').value;
+            
+            if (pendingResetEmail) {
+                const users = getUsers();
+                users[pendingResetEmail].password = newPass;
+                saveUsers(users);
+                alert("Password updated successfully! Please login with your new password.");
+                showForm('login');
+            }
         });
     </script>
 
