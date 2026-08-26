@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auth & AI Chat</title>
+    <title>Auth System</title>
     <style>
         * {
             margin: 0;
@@ -19,6 +19,12 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #1f4068, #162447, #1b1b2f);
             color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        body.logged-in {
+            background: #ffffff;
+            color: #000;
         }
 
         /* Authentication Styles */
@@ -166,117 +172,33 @@
         .step-box { display: none; }
         .step-box.active { display: block; }
 
-        /* AI Chat Container Styles */
-        .chat-container {
+        /* Blank Page Styles */
+        .blank-container {
             display: none;
-            width: 90%;
-            max-width: 850px;
-            height: 85vh;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-header {
+            width: 100%;
+            height: 100vh;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header h3 {
-            font-size: 1.3em;
-            color: #38bdf8;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            box-sizing: border-box;
         }
 
         .btn-logout {
-            padding: 8px 16px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #f87171;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #ef4444;
+            border: none;
+            color: #fff;
+            font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .btn-logout:hover { background: rgba(239, 68, 68, 0.4); }
-
-        .chat-box {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .message {
-            max-width: 75%;
-            padding: 12px 18px;
-            border-radius: 15px;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .message.bot {
-            background: rgba(255, 255, 255, 0.1);
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-
-        .message.user {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
-
-        .chat-input-area {
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            gap: 12px;
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: #fff;
-            outline: none;
-        }
-
-        .chat-input-area input:focus {
-            border-color: #38bdf8;
-        }
-
-        .btn-send {
-            padding: 0 25px;
-            background: #38bdf8;
-            border: none;
-            border-radius: 12px;
-            color: #0f172a;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-send:hover { background: #0284c7; color: #fff; }
+        .btn-logout:hover { background: #dc2626; }
 
         @media (max-width: 480px) {
             .auth-container { width: 90%; padding: 25px; }
-            .chat-container { width: 95%; height: 90vh; }
         }
     </style>
 </head>
@@ -394,23 +316,9 @@
         </div>
     </div>
 
-    <!-- AI Chat Interface Section -->
-    <div class="chat-container" id="chat-section">
-        <div class="chat-header">
-            <h3>✦ AI Assistant</h3>
-            <button class="btn-logout" onclick="logout()">Log Out</button>
-        </div>
-
-        <div class="chat-box" id="chat-messages">
-            <div class="message bot">
-                سڵاو! بەخێرپێیت بۆ AI Chat. چۆن دەتوانم یارمه‌تیت بدم؟
-            </div>
-        </div>
-
-        <div class="chat-input-area">
-            <input type="text" id="user-input" placeholder="پەیامەکەت بنووسە..." onkeypress="handleKeyPress(event)">
-            <button class="btn-send" onclick="sendMessage()">Send</button>
-        </div>
+    <!-- Blank White Page Section -->
+    <div class="blank-container" id="blank-section">
+        <button class="btn-logout" onclick="logout()">Log Out</button>
     </div>
 
     <script>
@@ -431,31 +339,33 @@
             else if (formType === 'forgot') forgotBox.classList.add('active');
         }
 
-        // Redirect to AI Chat View
-        function openChat() {
+        // Redirect to Blank White Page
+        function openBlankPage() {
             document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('chat-section').style.display = 'flex';
+            document.getElementById('blank-section').style.display = 'block';
+            document.body.classList.add('logged-in');
         }
 
         function logout() {
-            document.getElementById('chat-section').style.display = 'none';
+            document.getElementById('blank-section').style.display = 'none';
             document.getElementById('auth-section').style.display = 'block';
+            document.body.classList.remove('logged-in');
             showForm('login');
         }
 
         // Form Submit Actions
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            openChat();
+            openBlankPage();
         });
 
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            openChat();
+            openBlankPage();
         });
 
         function loginWithGoogle() {
-            openChat();
+            openBlankPage();
         }
 
         // Forgot Password Logic
@@ -478,40 +388,6 @@
             alert("Password updated successfully!");
             showForm('login');
         });
-
-        // Chat UI System
-        function sendMessage() {
-            const inputField = document.getElementById('user-input');
-            const messageText = inputField.value.trim();
-
-            if (messageText === "") return;
-
-            const chatMessages = document.getElementById('chat-messages');
-
-            // Append User Message
-            const userMsg = document.createElement('div');
-            userMsg.className = 'message user';
-            userMsg.textContent = messageText;
-            chatMessages.appendChild(userMsg);
-
-            inputField.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // Simulated AI Response
-            setTimeout(() => {
-                const botMsg = document.createElement('div');
-                botMsg.className = 'message bot';
-                botMsg.textContent = "پەیامەکەت گەیشت! دەتوانیت لێرەوە Gemini API یان هەر APIیەکی تر ببەستیتەوە.";
-                chatMessages.appendChild(botMsg);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 800);
-        }
-
-        function handleKeyPress(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        }
     </script>
 
 </body>
