@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lovable Design - White Theme</title>
+    <title>Lovable Design</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -18,19 +18,25 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #ffffff;
-            color: #0f172a;
+            background: #0f1015;
+            color: #fff;
             transition: background 0.3s ease;
         }
 
-        /* Auth Styles */
+        body.logged-in {
+            background: #ffffff;
+            color: #0f172a;
+        }
+
+        /* Auth Container Styles */
         .auth-container {
             width: 400px;
             padding: 40px;
-            background: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
         }
 
         .form-box { display: none; }
@@ -40,7 +46,6 @@
             font-size: 2em;
             margin-bottom: 25px;
             text-align: center;
-            color: #0f172a;
         }
 
         .input-group {
@@ -51,25 +56,40 @@
             display: block;
             margin-bottom: 8px;
             font-size: 0.9em;
-            color: #475569;
+            color: #d1d5db;
         }
 
         .input-group input {
             width: 100%;
             padding: 12px 15px;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             outline: none;
             border-radius: 10px;
-            color: #0f172a;
+            color: #fff;
             font-size: 1em;
         }
+
+        .options {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            font-size: 0.85em;
+        }
+
+        .options a {
+            color: #38bdf8;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .options a:hover { text-decoration: underline; }
 
         .btn-submit {
             width: 100%;
             padding: 12px;
-            margin-top: 10px;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            margin-top: 5px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             border: none;
             border-radius: 10px;
             color: #fff;
@@ -78,18 +98,60 @@
             cursor: pointer;
         }
 
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #9ca3af;
+            font-size: 0.85em;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .divider span { padding: 0 10px; }
+
+        .btn-google {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn-google:hover { background: rgba(255, 255, 255, 0.15); }
+
+        .btn-google svg { width: 18px; height: 18px; }
+
         .switch-link {
             text-align: center;
             margin-top: 25px;
             font-size: 0.9em;
-            color: #64748b;
+            color: #cbd5e1;
         }
 
         .switch-link a {
-            color: #2563eb;
+            color: #38bdf8;
             text-decoration: none;
             cursor: pointer;
+            font-weight: 600;
         }
+
+        .step-box { display: none; }
+        .step-box.active { display: block; }
 
         /* Lovable Light Theme Styles */
         .lovable-container {
@@ -330,6 +392,7 @@
 
     <!-- Auth Container -->
     <div class="auth-container" id="auth-section">
+        <!-- Log In Form -->
         <div class="form-box active" id="login-box">
             <h2>Log In</h2>
             <form id="login-form">
@@ -337,33 +400,105 @@
                     <label>Email Address</label>
                     <input type="email" placeholder="Enter your email" required>
                 </div>
+                
                 <div class="input-group">
                     <label>Password</label>
                     <input type="password" placeholder="Enter your password" required>
                 </div>
+
+                <div class="options">
+                    <a onclick="showForm('forgot')">Forgot Password?</a>
+                </div>
+
                 <button type="submit" class="btn-submit">Log In</button>
+
+                <div class="divider"><span>OR</span></div>
+
+                <button type="button" class="btn-google" onclick="openLovablePage()">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
+                        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+                        <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 14.5s.7 4.8 1.9 7.2l3.7-2.9z"/>
+                        <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
                 <div class="switch-link">
                     Don't have an account? <a onclick="showForm('signup')">Sign Up</a>
                 </div>
             </form>
         </div>
 
+        <!-- Sign Up Form -->
         <div class="form-box" id="signup-box">
             <h2>Sign Up</h2>
             <form id="signup-form">
                 <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-group">
                     <label>Email Address</label>
                     <input type="email" placeholder="Enter your email" required>
                 </div>
+                
                 <div class="input-group">
                     <label>Password</label>
                     <input type="password" placeholder="Create a password" required>
                 </div>
+
                 <button type="submit" class="btn-submit">Sign Up</button>
+
+                <div class="divider"><span>OR</span></div>
+
+                <button type="button" class="btn-google" onclick="openLovablePage()">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
+                        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+                        <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 14.5s.7 4.8 1.9 7.2l3.7-2.9z"/>
+                        <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
                 <div class="switch-link">
                     Already have an account? <a onclick="showForm('login')">Log In</a>
                 </div>
             </form>
+        </div>
+
+        <!-- Forgot Password Form -->
+        <div class="form-box" id="forgot-box">
+            <h2>Reset Password</h2>
+            
+            <form id="passwords-step" class="step-box active">
+                <div class="input-group">
+                    <label>New Password</label>
+                    <input type="password" id="new-pass" placeholder="Enter new password" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirm-pass" placeholder="Confirm new password" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Send Code</button>
+            </form>
+
+            <form id="code-step" class="step-box">
+                <div class="input-group">
+                    <label>Verification Code</label>
+                    <input type="text" maxlength="6" placeholder="Enter 6-digit code" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Change Password</button>
+            </form>
+
+            <div class="switch-link">
+                Remember your password? <a onclick="showForm('login')">Log In</a>
+            </div>
         </div>
     </div>
 
@@ -418,16 +553,22 @@
 
     <script>
         function showForm(formType) {
+            document.getElementById('passwords-step').classList.add('active');
+            document.getElementById('code-step').classList.remove('active');
+
             document.getElementById('signup-box').classList.remove('active');
             document.getElementById('login-box').classList.remove('active');
+            document.getElementById('forgot-box').classList.remove('active');
 
             if (formType === 'login') document.getElementById('login-box').classList.add('active');
             else if (formType === 'signup') document.getElementById('signup-box').classList.add('active');
+            else if (formType === 'forgot') document.getElementById('forgot-box').classList.add('active');
         }
 
         function openLovablePage() {
             document.getElementById('auth-section').style.display = 'none';
             document.getElementById('lovable-section').style.display = 'flex';
+            document.body.classList.add('logged-in');
         }
 
         document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -438,6 +579,27 @@
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             openLovablePage();
+        });
+
+        // Forgot Password Logic
+        document.getElementById('passwords-step').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newPass = document.getElementById('new-pass').value;
+            const confirmPass = document.getElementById('confirm-pass').value;
+
+            if (newPass !== confirmPass) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            document.getElementById('passwords-step').classList.remove('active');
+            document.getElementById('code-step').classList.add('active');
+        });
+
+        document.getElementById('code-step').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Password updated successfully!");
+            showForm('login');
         });
     </script>
 
