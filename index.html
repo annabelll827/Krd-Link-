@@ -590,20 +590,27 @@
             document.getElementById('zagros-section').style.display = 'flex';
         }
 
-        // EmailJS OTP Sending Logic
+        // Updated EmailJS Logic (Includes name & time parameters)
         function sendOTP(email, callback) {
             currentOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            emailjs.send("service_gdei4n6", "template_51e9lqm", {
+            const templateParams = {
                 email: email,
-                passcode: currentOTP
-            }).then(function(response) {
-                console.log('OTP Sent Successfully!', response.status, response.text);
-                callback(true);
-            }, function(error) {
-                console.error('OTP Send Failed:', error);
-                callback(false);
-            });
+                name: pendingUser ? pendingUser.name : "User",
+                passcode: currentOTP,
+                time: currentTime
+            };
+
+            emailjs.send("service_gdei4n6", "template_51e9lqm", templateParams)
+                .then(function(response) {
+                    console.log('OTP Sent Successfully!', response.status, response.text);
+                    callback(true);
+                }, function(error) {
+                    console.error('OTP Send Failed:', error);
+                    callback(false);
+                });
         }
 
         // SIGN UP Submit -> Send Verification Code
@@ -640,7 +647,7 @@
                     showForm('verify');
                     showAlert('verify-alert', 'Verification code sent to ' + email, true);
                 } else {
-                    showAlert('signup-alert', 'Failed to send verification email. Please try again.');
+                    showAlert('signup-alert', 'Failed to send verification email. Please check EmailJS settings.');
                 }
             });
         });
