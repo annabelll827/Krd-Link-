@@ -43,7 +43,7 @@
             letter-spacing: -0.5px;
         }
 
-        /* Modern inline Error Message Alert */
+        /* Inline Error Alert Box */
         .alert-msg {
             display: none;
             background-color: #fef2f2;
@@ -366,7 +366,6 @@
         <!-- Sign Up Form -->
         <div class="form-box" id="signup-box">
             <h2>Sign Up</h2>
-            <!-- Inline Alert Box for Signup Errors -->
             <div class="alert-msg" id="signup-alert"></div>
             
             <form id="signup-form">
@@ -506,6 +505,13 @@
             document.querySelectorAll('.alert-msg').forEach(el => el.style.display = 'none');
         }
 
+        // Password Validation Helper: Minimum 8 chars and contains at least 1 digit
+        function isValidPassword(password) {
+            const hasMinLength = password.length >= 8;
+            const hasDigit = /\d/.test(password);
+            return hasMinLength && hasDigit;
+        }
+
         function showForm(formType) {
             hideAlerts();
             document.getElementById('passwords-step').classList.add('active');
@@ -539,7 +545,7 @@
             document.getElementById('zagros-section').style.display = 'flex';
         }
 
-        // SIGN UP Logic with Clean Inline Alert
+        // SIGN UP Logic with Strict Password Rules
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             hideAlerts();
@@ -547,6 +553,12 @@
             const name = document.getElementById('signup-name').value.trim();
             const email = document.getElementById('signup-email').value.trim().toLowerCase();
             const password = document.getElementById('signup-password').value;
+
+            // Password length & digit validation
+            if (!isValidPassword(password)) {
+                showAlert('signup-alert', 'Password must be at least 8 characters long and contain at least one number.');
+                return;
+            }
 
             const users = getUsers();
 
@@ -560,7 +572,7 @@
             openZagrosPage(name);
         });
 
-        // LOG IN Logic with Inline Alert
+        // LOG IN Logic
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             hideAlerts();
@@ -600,6 +612,11 @@
 
             if (!users[email]) {
                 showAlert('forgot-alert', 'This email is not registered.');
+                return;
+            }
+
+            if (!isValidPassword(newPass)) {
+                showAlert('forgot-alert', 'Password must be at least 8 characters long and contain at least one number.');
                 return;
             }
 
