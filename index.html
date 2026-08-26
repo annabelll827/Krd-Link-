@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zagros AI - Modern Auth</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- EmailJS SDK Integration -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            // Public Keyی تۆ
+            emailjs.init("YZUxnjflZIe7NP8BI"); 
+        })();
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -43,7 +53,6 @@
             letter-spacing: -0.5px;
         }
 
-        /* Inline Error Alert Box */
         .alert-msg {
             display: none;
             background-color: #fef2f2;
@@ -56,6 +65,12 @@
             margin-bottom: 20px;
             text-align: center;
             animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .alert-msg.success {
+            background-color: #f0fdf4;
+            color: #16a34a;
+            border-color: #86efac;
         }
 
         @keyframes fadeIn {
@@ -154,6 +169,11 @@
         .btn-submit:hover {
             opacity: 0.95;
             transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .divider {
@@ -317,6 +337,7 @@
 
     <!-- Auth Container -->
     <div class="auth-container" id="auth-section">
+        
         <!-- Log In Form -->
         <div class="form-box active" id="login-box">
             <h2>Log In</h2>
@@ -363,7 +384,7 @@
             </form>
         </div>
 
-        <!-- Sign Up Form -->
+        <!-- Sign Up Form (Step 1) -->
         <div class="form-box" id="signup-box">
             <h2>Sign Up</h2>
             <div class="alert-msg" id="signup-alert"></div>
@@ -394,7 +415,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">Sign Up</button>
+                <button type="submit" class="btn-submit" id="signup-btn">Send Verification Code</button>
 
                 <div class="divider"><span>OR</span></div>
 
@@ -410,6 +431,28 @@
 
                 <div class="switch-link">
                     Already have an account? <a onclick="showForm('login')">Log In</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Verify Email Form (Step 2) -->
+        <div class="form-box" id="verify-box">
+            <h2>Verify Email</h2>
+            <div class="alert-msg" id="verify-alert"></div>
+            
+            <form id="verify-form">
+                <div class="input-group">
+                    <label>Verification Code</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-shield-halved input-icon"></i>
+                        <input type="text" id="otp-input" maxlength="6" placeholder="Enter 6-digit code" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Verify & Create Account</button>
+
+                <div class="switch-link">
+                    Didn't receive code? <a onclick="resendOTP()">Resend Code</a>
                 </div>
             </form>
         </div>
@@ -463,6 +506,7 @@
                 Remember your password? <a onclick="showForm('login')">Log In</a>
             </div>
         </div>
+
     </div>
 
     <!-- Zagros AI Main Section -->
@@ -486,6 +530,8 @@
 
     <script>
         const USERS_STORAGE_KEY = 'zagros_ai_users';
+        let pendingUser = null;
+        let currentOTP = null;
 
         function getUsers() {
             return JSON.parse(localStorage.getItem(USERS_STORAGE_KEY)) || {};
@@ -495,9 +541,10 @@
             localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
         }
 
-        function showAlert(elementId, message) {
+        function showAlert(elementId, message, isSuccess = false) {
             const alertBox = document.getElementById(elementId);
             alertBox.textContent = message;
+            alertBox.className = 'alert-msg' + (isSuccess ? ' success' : '');
             alertBox.style.display = 'block';
         }
 
@@ -505,7 +552,6 @@
             document.querySelectorAll('.alert-msg').forEach(el => el.style.display = 'none');
         }
 
-        // Password Validation Helper: Minimum 8 chars and contains at least 1 digit
         function isValidPassword(password) {
             const hasMinLength = password.length >= 8;
             const hasDigit = /\d/.test(password);
@@ -517,12 +563,11 @@
             document.getElementById('passwords-step').classList.add('active');
             document.getElementById('code-step').classList.remove('active');
 
-            document.getElementById('signup-box').classList.remove('active');
-            document.getElementById('login-box').classList.remove('active');
-            document.getElementById('forgot-box').classList.remove('active');
+            document.querySelectorAll('.form-box').forEach(el => el.classList.remove('active'));
 
             if (formType === 'login') document.getElementById('login-box').classList.add('active');
             else if (formType === 'signup') document.getElementById('signup-box').classList.add('active');
+            else if (formType === 'verify') document.getElementById('verify-box').classList.add('active');
             else if (formType === 'forgot') document.getElementById('forgot-box').classList.add('active');
         }
 
@@ -545,7 +590,23 @@
             document.getElementById('zagros-section').style.display = 'flex';
         }
 
-        // SIGN UP Logic with Strict Password Rules
+        // EmailJS OTP Sending Logic
+        function sendOTP(email, callback) {
+            currentOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+            emailjs.send("service_gdei4n6", "template_51e9lqm", {
+                email: email,
+                passcode: currentOTP
+            }).then(function(response) {
+                console.log('OTP Sent Successfully!', response.status, response.text);
+                callback(true);
+            }, function(error) {
+                console.error('OTP Send Failed:', error);
+                callback(false);
+            });
+        }
+
+        // SIGN UP Submit -> Send Verification Code
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             hideAlerts();
@@ -554,23 +615,64 @@
             const email = document.getElementById('signup-email').value.trim().toLowerCase();
             const password = document.getElementById('signup-password').value;
 
-            // Password length & digit validation
             if (!isValidPassword(password)) {
                 showAlert('signup-alert', 'Password must be at least 8 characters long and contain at least one number.');
                 return;
             }
 
             const users = getUsers();
-
             if (users[email]) {
                 showAlert('signup-alert', 'This email is already registered.');
                 return;
             }
 
-            users[email] = { name: name, password: password };
-            saveUsers(users);
-            openZagrosPage(name);
+            const btn = document.getElementById('signup-btn');
+            btn.textContent = 'Sending Code...';
+            btn.disabled = true;
+
+            pendingUser = { name, email, password };
+
+            sendOTP(email, function(success) {
+                btn.textContent = 'Send Verification Code';
+                btn.disabled = false;
+
+                if (success) {
+                    showForm('verify');
+                    showAlert('verify-alert', 'Verification code sent to ' + email, true);
+                } else {
+                    showAlert('signup-alert', 'Failed to send verification email. Please try again.');
+                }
+            });
         });
+
+        // VERIFY FORM Submit -> Verify OTP & Create Account
+        document.getElementById('verify-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            hideAlerts();
+
+            const inputOTP = document.getElementById('otp-input').value.trim();
+
+            if (inputOTP === currentOTP) {
+                const users = getUsers();
+                users[pendingUser.email] = { name: pendingUser.name, password: pendingUser.password };
+                saveUsers(users);
+                openZagrosPage(pendingUser.name);
+            } else {
+                showAlert('verify-alert', 'Invalid verification code. Please try again.');
+            }
+        });
+
+        function resendOTP() {
+            if (!pendingUser) return;
+            hideAlerts();
+            sendOTP(pendingUser.email, function(success) {
+                if (success) {
+                    showAlert('verify-alert', 'A new verification code has been sent!', true);
+                } else {
+                    showAlert('verify-alert', 'Failed to resend code.');
+                }
+            });
+        }
 
         // LOG IN Logic
         document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -639,7 +741,7 @@
                 users[pendingResetEmail].password = newPass;
                 saveUsers(users);
                 showForm('login');
-                showAlert('login-alert', 'Password updated successfully. Please log in.');
+                showAlert('login-alert', 'Password updated successfully. Please log in.', true);
             }
         });
     </script>
