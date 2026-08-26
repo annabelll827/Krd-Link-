@@ -13,23 +13,24 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* 100% Pure White Global Background */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #ffffff;
+            background: #ffffff !important;
             color: #000000;
         }
 
-        /* Auth Container Styles - Pure White & Dark Contrast */
+        /* Auth Container Styles - Fully White */
         .auth-container {
             width: 380px;
             padding: 35px 30px;
             background: #ffffff;
             border-radius: 20px;
-            border: 1.5px solid #18181b;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e4e4e7;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
         .form-box { display: none; }
@@ -59,7 +60,7 @@
             width: 100%;
             padding: 12px 16px;
             background: #ffffff;
-            border: 1.5px solid #d4d4d8;
+            border: 1px solid #d4d4d8;
             outline: none;
             border-radius: 12px;
             color: #000000;
@@ -73,7 +74,7 @@
         }
 
         .input-group input::placeholder {
-            color: #71717a;
+            color: #a1a1aa;
         }
 
         .options {
@@ -84,8 +85,8 @@
         }
 
         .options a {
-            color: #000000;
-            text-decoration: underline;
+            color: #2563eb;
+            text-decoration: none;
             cursor: pointer;
             font-weight: 600;
         }
@@ -93,7 +94,7 @@
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background: #000000;
+            background: #2563eb;
             border: none;
             border-radius: 12px;
             color: #ffffff;
@@ -104,7 +105,7 @@
         }
 
         .btn-submit:hover {
-            background: #27272a;
+            background: #1d4ed8;
         }
 
         .divider {
@@ -112,7 +113,7 @@
             align-items: center;
             text-align: center;
             margin: 20px 0;
-            color: #52525b;
+            color: #71717a;
             font-size: 0.8em;
             font-weight: 700;
         }
@@ -120,7 +121,7 @@
         .divider::before, .divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1.5px solid #e4e4e7;
+            border-bottom: 1px solid #e4e4e7;
         }
 
         .divider span { padding: 0 10px; }
@@ -129,7 +130,7 @@
             width: 100%;
             padding: 12px;
             background: #ffffff;
-            border: 1.5px solid #18181b;
+            border: 1px solid #e4e4e7;
             border-radius: 12px;
             color: #000000;
             font-size: 0.95em;
@@ -150,12 +151,12 @@
             text-align: center;
             margin-top: 22px;
             font-size: 0.88em;
-            color: #3f3f46;
+            color: #52525b;
         }
 
         .switch-link a {
-            color: #000000;
-            text-decoration: underline;
+            color: #2563eb;
+            text-decoration: none;
             cursor: pointer;
             font-weight: 700;
         }
@@ -163,12 +164,12 @@
         .step-box { display: none; }
         .step-box.active { display: block; }
 
-        /* Full Light Zagros AI Main Layout */
+        /* Full White Zagros AI Main Layout */
         .zagros-container {
             display: none;
             width: 100%;
             min-height: 100vh;
-            background: #ffffff;
+            background: #ffffff !important;
             position: relative;
             flex-direction: column;
             align-items: center;
@@ -198,20 +199,20 @@
         .logo-heart {
             width: 22px;
             height: 22px;
-            background: #000000;
+            background: linear-gradient(135deg, #ff4b4b, #ff758c);
             clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
             transform: rotate(-10deg);
         }
 
-        /* Input Box with Dark Borders and Dark Icons */
+        /* Pure White Input Box */
         .prompt-box {
             width: 100%;
             max-width: 500px;
             background: #ffffff;
-            border: 1.5px solid #18181b;
+            border: 1px solid #e4e4e7;
             border-radius: 20px;
             padding: 16px 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             margin: auto 0;
         }
 
@@ -227,7 +228,7 @@
         }
 
         .prompt-input::placeholder {
-            color: #71717a;
+            color: #a1a1aa;
         }
 
         .prompt-actions {
@@ -239,7 +240,7 @@
         .action-btn {
             background: transparent;
             border: none;
-            color: #000000; /* ئایکۆنی ڕەشی تۆخ */
+            color: #000000;
             font-size: 1.2em;
             cursor: pointer;
             display: flex;
