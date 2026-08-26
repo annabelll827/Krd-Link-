@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zagros AI - Glassmorphism Light</title>
+    <title>Zagros AI - Modern Auth</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,36 +13,33 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Gradient Light Background for Better Glass Effect */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%) !important;
-            color: #18181b;
+            background-color: #f8fafc;
+            color: #0f172a;
         }
 
-        /* Glassmorphism White Card */
+        /* Modern Card with Purple Accent Border */
         .auth-container {
-            width: 360px;
-            padding: 35px 28px;
-            background: rgba(255, 255, 255, 0.65) !important;
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            width: 380px;
+            padding: 40px 28px;
+            background: #ffffff;
+            border-radius: 28px;
+            border: 1.5px solid #818cf8;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.08);
         }
 
         .form-box { display: none; }
         .form-box.active { display: block; }
 
         .auth-container h2 {
-            font-size: 2em;
-            margin-bottom: 24px;
+            font-size: 2.2em;
+            margin-bottom: 28px;
             text-align: center;
-            color: #09090b;
+            color: #4f46e5;
             font-weight: 800;
             letter-spacing: -0.5px;
         }
@@ -55,63 +52,90 @@
             display: block;
             margin-bottom: 8px;
             font-size: 0.88em;
-            color: #27272a;
-            font-weight: 600;
+            color: #0f172a;
+            font-weight: 700;
         }
 
-        /* Glassy Inputs */
-        .input-group input {
+        /* Input Wrappers with Icons */
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.input-icon {
+            position: absolute;
+            left: 16px;
+            color: #4f46e5;
+            font-size: 1.05em;
+        }
+
+        .input-wrapper input {
             width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.7) !important;
-            border: 1px solid rgba(209, 213, 219, 0.8);
+            padding: 14px 16px 14px 45px;
+            background-color: #f1f5f9;
+            border: 1px solid transparent;
             outline: none;
-            border-radius: 12px;
-            color: #09090b;
+            border-radius: 14px;
+            color: #0f172a;
             font-size: 0.95em;
             font-weight: 500;
             transition: all 0.2s ease;
         }
 
-        .input-group input:focus {
-            border-color: #000000;
-            background: rgba(255, 255, 255, 0.95) !important;
+        .input-wrapper input:focus {
+            background-color: #ffffff;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
         }
 
-        .input-group input::placeholder {
-            color: #9ca3af;
+        .input-wrapper input::placeholder {
+            color: #94a3b8;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            color: #4f46e5;
+            cursor: pointer;
+            font-size: 1.05em;
         }
 
         .options {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             font-size: 0.85em;
         }
 
         .options a {
-            color: #09090b;
-            text-decoration: underline;
+            color: #4f46e5;
+            text-decoration: none;
             cursor: pointer;
             font-weight: 600;
         }
 
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        /* Vibrant Gradient Submit Button */
         .btn-submit {
             width: 100%;
-            padding: 12px;
-            background: #09090b !important;
+            padding: 14px;
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: #ffffff;
             font-size: 1em;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25);
         }
 
         .btn-submit:hover {
-            opacity: 0.9;
+            opacity: 0.95;
             transform: translateY(-1px);
         }
 
@@ -119,8 +143,8 @@
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 22px 0;
-            color: #6b7280;
+            margin: 24px 0;
+            color: #94a3b8;
             font-size: 0.75em;
             font-weight: 700;
         }
@@ -128,20 +152,20 @@
         .divider::before, .divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid rgba(209, 213, 219, 0.8);
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .divider span { padding: 0 10px; }
+        .divider span { padding: 0 12px; }
 
         .btn-google {
             width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.8) !important;
-            border: 1px solid rgba(209, 213, 219, 0.8);
-            border-radius: 12px;
-            color: #09090b;
+            padding: 13px;
+            background-color: #ffffff;
+            border: 1.5px solid #818cf8;
+            border-radius: 14px;
+            color: #0f172a;
             font-size: 0.95em;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -151,23 +175,27 @@
         }
 
         .btn-google:hover {
-            background: rgba(255, 255, 255, 1) !important;
+            background-color: #f8fafc;
         }
 
         .btn-google svg { width: 18px; height: 18px; }
 
         .switch-link {
             text-align: center;
-            margin-top: 22px;
+            margin-top: 24px;
             font-size: 0.88em;
-            color: #4b5563;
+            color: #64748b;
         }
 
         .switch-link a {
-            color: #09090b;
-            text-decoration: underline;
+            color: #4f46e5;
+            text-decoration: none;
             cursor: pointer;
             font-weight: 700;
+        }
+
+        .switch-link a:hover {
+            text-decoration: underline;
         }
 
         .step-box { display: none; }
@@ -215,9 +243,7 @@
         .prompt-box {
             width: 100%;
             max-width: 500px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(228, 228, 231, 0.8);
+            background: #f1f5f9;
             border-radius: 20px;
             padding: 16px 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -236,7 +262,7 @@
         }
 
         .prompt-input::placeholder {
-            color: #a1a1aa;
+            color: #94a3b8;
         }
 
         .prompt-actions {
@@ -248,7 +274,7 @@
         .action-btn {
             background: transparent;
             border: none;
-            color: #000000;
+            color: #4f46e5;
             font-size: 1.2em;
             cursor: pointer;
             display: flex;
@@ -261,7 +287,7 @@
         }
 
         @media (max-width: 480px) {
-            .auth-container { width: 90%; padding: 25px; }
+            .auth-container { width: 92%; padding: 30px 20px; }
         }
     </style>
 </head>
@@ -275,12 +301,19 @@
             <form id="login-form">
                 <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" placeholder="Enter your email" required>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
                 </div>
                 
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" placeholder="Enter your password" required>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                        <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility('login-password', this)"></i>
+                    </div>
                 </div>
 
                 <div class="options">
@@ -313,17 +346,27 @@
             <form id="signup-form">
                 <div class="input-group">
                     <label>Full Name</label>
-                    <input type="text" placeholder="Enter your full name" required>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user input-icon"></i>
+                        <input type="text" placeholder="Enter your full name" required>
+                    </div>
                 </div>
 
                 <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" placeholder="Enter your email" required>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
                 </div>
                 
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" placeholder="Create a password" required>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="signup-password" placeholder="Create a password" required>
+                        <i class="fa-regular fa-eye toggle-password" onclick="togglePasswordVisibility('signup-password', this)"></i>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit">Sign Up</button>
@@ -353,12 +396,18 @@
             <form id="passwords-step" class="step-box active">
                 <div class="input-group">
                     <label>New Password</label>
-                    <input type="password" id="new-pass" placeholder="Enter new password" required>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="new-pass" placeholder="Enter new password" required>
+                    </div>
                 </div>
 
                 <div class="input-group">
                     <label>Confirm Password</label>
-                    <input type="password" id="confirm-pass" placeholder="Confirm new password" required>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="confirm-pass" placeholder="Confirm new password" required>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit">Send Code</button>
@@ -367,7 +416,10 @@
             <form id="code-step" class="step-box">
                 <div class="input-group">
                     <label>Verification Code</label>
-                    <input type="text" maxlength="6" placeholder="Enter 6-digit code" required>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-shield-halved input-icon"></i>
+                        <input type="text" maxlength="6" placeholder="Enter 6-digit code" required>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit">Change Password</button>
@@ -409,6 +461,19 @@
             if (formType === 'login') document.getElementById('login-box').classList.add('active');
             else if (formType === 'signup') document.getElementById('signup-box').classList.add('active');
             else if (formType === 'forgot') document.getElementById('forgot-box').classList.add('active');
+        }
+
+        function togglePasswordVisibility(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
 
         function openZagrosPage() {
