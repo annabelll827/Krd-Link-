@@ -22,46 +22,54 @@
             color: #0f172a;
         }
 
-        /* Auth Container Styles */
+        /* Auth Container Styles - Light Theme */
         .auth-container {
-            width: 400px;
-            padding: 40px;
+            width: 380px;
+            padding: 35px 30px;
             background: #ffffff;
             border-radius: 20px;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .form-box { display: none; }
         .form-box.active { display: block; }
 
         .auth-container h2 {
-            font-size: 2em;
+            font-size: 1.8em;
             margin-bottom: 25px;
             text-align: center;
             color: #0f172a;
+            font-weight: 700;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            font-size: 0.9em;
+            font-size: 0.88em;
             color: #475569;
+            font-weight: 500;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px 16px;
             background: #f8fafc;
-            border: 1px solid #cbd5e1;
+            border: 1px solid #e2e8f0;
             outline: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: #0f172a;
-            font-size: 1em;
+            font-size: 0.95em;
+            transition: all 0.2s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #2563eb;
+            background: #ffffff;
         }
 
         .options {
@@ -75,6 +83,7 @@
             color: #2563eb;
             text-decoration: none;
             cursor: pointer;
+            font-weight: 500;
         }
 
         .options a:hover { text-decoration: underline; }
@@ -82,14 +91,18 @@
         .btn-submit {
             width: 100%;
             padding: 12px;
-            margin-top: 5px;
             background: #2563eb;
             border: none;
-            border-radius: 10px;
-            color: #fff;
+            border-radius: 12px;
+            color: #ffffff;
             font-size: 1em;
             font-weight: 600;
             cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-submit:hover {
+            background: #1d4ed8;
         }
 
         .divider {
@@ -98,13 +111,14 @@
             text-align: center;
             margin: 20px 0;
             color: #94a3b8;
-            font-size: 0.85em;
+            font-size: 0.8em;
+            font-weight: 600;
         }
 
         .divider::before, .divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #f1f5f9;
         }
 
         .divider span { padding: 0 10px; }
@@ -113,8 +127,8 @@
             width: 100%;
             padding: 12px;
             background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             color: #334155;
             font-size: 0.95em;
             font-weight: 500;
@@ -123,7 +137,7 @@
             justify-content: center;
             gap: 10px;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: 0.2s ease;
         }
 
         .btn-google:hover { background: #f8fafc; }
@@ -132,8 +146,8 @@
 
         .switch-link {
             text-align: center;
-            margin-top: 25px;
-            font-size: 0.9em;
+            margin-top: 22px;
+            font-size: 0.88em;
             color: #64748b;
         }
 
@@ -147,7 +161,7 @@
         .step-box { display: none; }
         .step-box.active { display: block; }
 
-        /* Full White Zagros AI Layout */
+        /* Full Light Zagros AI Main Layout */
         .zagros-container {
             display: none;
             width: 100%;
@@ -166,8 +180,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-top: 10px;
-            z-index: 2;
+            margin-top: 20px;
         }
 
         .brand-logo {
@@ -181,24 +194,23 @@
         }
 
         .logo-heart {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             background: linear-gradient(135deg, #ff4b4b, #ff758c);
             clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
             transform: rotate(-10deg);
         }
 
-        /* Input Box */
+        /* Pure White Input Box */
         .prompt-box {
             width: 100%;
             max-width: 500px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 24px;
-            padding: 18px 20px 14px 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             margin: auto 0;
-            z-index: 2;
         }
 
         .prompt-input {
@@ -208,7 +220,7 @@
             outline: none;
             color: #0f172a;
             font-size: 1.05em;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .prompt-input::placeholder {
@@ -221,21 +233,19 @@
             justify-content: space-between;
         }
 
-        .left-actions, .right-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
         .action-btn {
             background: transparent;
             border: none;
             color: #64748b;
-            font-size: 1.1em;
+            font-size: 1.2em;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .action-btn:hover {
+            color: #0f172a;
         }
 
         @media (max-width: 480px) {
@@ -245,7 +255,7 @@
 </head>
 <body>
 
-    <!-- Auth Container -->
+    <!-- Auth Section -->
     <div class="auth-container" id="auth-section">
         <!-- Log In Form -->
         <div class="form-box active" id="login-box">
@@ -357,7 +367,7 @@
         </div>
     </div>
 
-    <!-- Zagros AI White Page Section -->
+    <!-- Zagros AI Main Section -->
     <div class="zagros-container" id="zagros-section">
         <div class="top-nav">
             <div class="brand-logo">
@@ -369,12 +379,8 @@
         <div class="prompt-box">
             <input type="text" class="prompt-input" placeholder="Ask Zagros">
             <div class="prompt-actions">
-                <div class="left-actions">
-                    <button class="action-btn"><i class="fa-solid fa-plus"></i></button>
-                </div>
-                <div class="right-actions">
-                    <button class="action-btn"><i class="fa-solid fa-microphone"></i></button>
-                </div>
+                <button class="action-btn"><i class="fa-solid fa-plus"></i></button>
+                <button class="action-btn"><i class="fa-solid fa-microphone"></i></button>
             </div>
         </div>
     </div>
