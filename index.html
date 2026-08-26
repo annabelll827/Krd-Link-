@@ -19,17 +19,17 @@
             align-items: center;
             min-height: 100vh;
             background: #ffffff;
-            color: #0f172a;
+            color: #000000;
         }
 
-        /* Auth Container Styles - Light Theme */
+        /* Auth Container Styles - Pure White & Dark Contrast */
         .auth-container {
             width: 380px;
             padding: 35px 30px;
             background: #ffffff;
             border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1.5px solid #18181b;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
         }
 
         .form-box { display: none; }
@@ -39,8 +39,8 @@
             font-size: 1.8em;
             margin-bottom: 25px;
             text-align: center;
-            color: #0f172a;
-            font-weight: 700;
+            color: #000000;
+            font-weight: 800;
         }
 
         .input-group {
@@ -51,25 +51,29 @@
             display: block;
             margin-bottom: 8px;
             font-size: 0.88em;
-            color: #475569;
-            font-weight: 500;
+            color: #18181b;
+            font-weight: 600;
         }
 
         .input-group input {
             width: 100%;
             padding: 12px 16px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            border: 1.5px solid #d4d4d8;
             outline: none;
             border-radius: 12px;
-            color: #0f172a;
+            color: #000000;
             font-size: 0.95em;
+            font-weight: 500;
             transition: all 0.2s ease;
         }
 
         .input-group input:focus {
-            border-color: #2563eb;
-            background: #ffffff;
+            border-color: #000000;
+        }
+
+        .input-group input::placeholder {
+            color: #71717a;
         }
 
         .options {
@@ -80,18 +84,16 @@
         }
 
         .options a {
-            color: #2563eb;
-            text-decoration: none;
+            color: #000000;
+            text-decoration: underline;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
         }
-
-        .options a:hover { text-decoration: underline; }
 
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background: #2563eb;
+            background: #000000;
             border: none;
             border-radius: 12px;
             color: #ffffff;
@@ -102,7 +104,7 @@
         }
 
         .btn-submit:hover {
-            background: #1d4ed8;
+            background: #27272a;
         }
 
         .divider {
@@ -110,15 +112,15 @@
             align-items: center;
             text-align: center;
             margin: 20px 0;
-            color: #94a3b8;
+            color: #52525b;
             font-size: 0.8em;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .divider::before, .divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1.5px solid #e4e4e7;
         }
 
         .divider span { padding: 0 10px; }
@@ -127,11 +129,11 @@
             width: 100%;
             padding: 12px;
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1.5px solid #18181b;
             border-radius: 12px;
-            color: #334155;
+            color: #000000;
             font-size: 0.95em;
-            font-weight: 500;
+            font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -140,7 +142,7 @@
             transition: 0.2s ease;
         }
 
-        .btn-google:hover { background: #f8fafc; }
+        .btn-google:hover { background: #f4f4f5; }
 
         .btn-google svg { width: 18px; height: 18px; }
 
@@ -148,14 +150,14 @@
             text-align: center;
             margin-top: 22px;
             font-size: 0.88em;
-            color: #64748b;
+            color: #3f3f46;
         }
 
         .switch-link a {
-            color: #2563eb;
-            text-decoration: none;
+            color: #000000;
+            text-decoration: underline;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .step-box { display: none; }
@@ -188,28 +190,28 @@
             align-items: center;
             gap: 8px;
             font-size: 1.8em;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: -0.5px;
-            color: #0f172a;
+            color: #000000;
         }
 
         .logo-heart {
             width: 22px;
             height: 22px;
-            background: linear-gradient(135deg, #ff4b4b, #ff758c);
+            background: #000000;
             clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
             transform: rotate(-10deg);
         }
 
-        /* Pure White Input Box */
+        /* Input Box with Dark Borders and Dark Icons */
         .prompt-box {
             width: 100%;
             max-width: 500px;
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1.5px solid #18181b;
             border-radius: 20px;
             padding: 16px 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             margin: auto 0;
         }
 
@@ -218,13 +220,14 @@
             background: transparent;
             border: none;
             outline: none;
-            color: #0f172a;
+            color: #000000;
             font-size: 1.05em;
+            font-weight: 500;
             margin-bottom: 20px;
         }
 
         .prompt-input::placeholder {
-            color: #94a3b8;
+            color: #71717a;
         }
 
         .prompt-actions {
@@ -236,16 +239,16 @@
         .action-btn {
             background: transparent;
             border: none;
-            color: #64748b;
+            color: #000000; /* ئایکۆنی ڕەشی تۆخ */
             font-size: 1.2em;
             cursor: pointer;
             display: flex;
             align-items: center;
-            transition: color 0.2s ease;
+            transition: transform 0.15s ease;
         }
 
         .action-btn:hover {
-            color: #0f172a;
+            transform: scale(1.1);
         }
 
         @media (max-width: 480px) {
