@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auth System</title>
+    <title>Auth & AI Chat</title>
     <style>
         * {
             margin: 0;
@@ -18,9 +18,11 @@
             align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #1f4068, #162447, #1b1b2f);
+            color: #fff;
         }
 
-        .container {
+        /* Authentication Styles */
+        .auth-container {
             width: 400px;
             padding: 40px;
             background: rgba(255, 255, 255, 0.05);
@@ -29,18 +31,12 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
-            color: #fff;
         }
 
-        .form-box {
-            display: none;
-        }
+        .form-box { display: none; }
+        .form-box.active { display: block; }
 
-        .form-box.active {
-            display: block;
-        }
-
-        .container h2 {
+        .auth-container h2 {
             font-size: 2em;
             margin-bottom: 25px;
             text-align: center;
@@ -90,9 +86,7 @@
             cursor: pointer;
         }
 
-        .options a:hover {
-            text-decoration: underline;
-        }
+        .options a:hover { text-decoration: underline; }
 
         .btn-submit {
             width: 100%;
@@ -113,7 +107,6 @@
         .btn-submit:hover {
             background: linear-gradient(135deg, #2563eb, #1e40af);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(29, 78, 216, 0.6);
         }
 
         .divider {
@@ -131,9 +124,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .divider span {
-            padding: 0 10px;
-        }
+        .divider span { padding: 0 10px; }
 
         .btn-google {
             width: 100%;
@@ -152,15 +143,9 @@
             transition: 0.3s ease;
         }
 
-        .btn-google:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
+        .btn-google:hover { background: rgba(255, 255, 255, 0.15); }
 
-        .btn-google svg {
-            width: 18px;
-            height: 18px;
-        }
+        .btn-google svg { width: 18px; height: 18px; }
 
         .switch-link {
             text-align: center;
@@ -176,29 +161,129 @@
             cursor: pointer;
         }
 
-        .switch-link a:hover {
-            text-decoration: underline;
-        }
+        .switch-link a:hover { text-decoration: underline; }
 
-        .step-box {
+        .step-box { display: none; }
+        .step-box.active { display: block; }
+
+        /* AI Chat Container Styles */
+        .chat-container {
             display: none;
+            width: 90%;
+            max-width: 850px;
+            height: 85vh;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .step-box.active {
-            display: block;
+        .chat-header {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .chat-header h3 {
+            font-size: 1.3em;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout {
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #f87171;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-logout:hover { background: rgba(239, 68, 68, 0.4); }
+
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .message.bot {
+            background: rgba(255, 255, 255, 0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            outline: none;
+        }
+
+        .chat-input-area input:focus {
+            border-color: #38bdf8;
+        }
+
+        .btn-send {
+            padding: 0 25px;
+            background: #38bdf8;
+            border: none;
+            border-radius: 12px;
+            color: #0f172a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-send:hover { background: #0284c7; color: #fff; }
 
         @media (max-width: 480px) {
-            .container {
-                width: 90%;
-                padding: 25px;
-            }
+            .auth-container { width: 90%; padding: 25px; }
+            .chat-container { width: 95%; height: 90vh; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- Auth Container -->
+    <div class="auth-container" id="auth-section">
         <!-- Sign Up Form -->
         <div class="form-box active" id="signup-box">
             <h2>Sign Up</h2>
@@ -220,9 +305,7 @@
 
                 <button type="submit" class="btn-submit">Sign Up</button>
 
-                <div class="divider">
-                    <span>OR</span>
-                </div>
+                <div class="divider"><span>OR</span></div>
 
                 <button type="button" class="btn-google" onclick="loginWithGoogle()">
                     <svg viewBox="0 0 24 24">
@@ -260,9 +343,7 @@
 
                 <button type="submit" class="btn-submit">Log In</button>
 
-                <div class="divider">
-                    <span>OR</span>
-                </div>
+                <div class="divider"><span>OR</span></div>
 
                 <button type="button" class="btn-google" onclick="loginWithGoogle()">
                     <svg viewBox="0 0 24 24">
@@ -284,7 +365,6 @@
         <div class="form-box" id="forgot-box">
             <h2>Reset Password</h2>
             
-            <!-- Step 1: Passwords Input -->
             <form id="passwords-step" class="step-box active">
                 <div class="input-group">
                     <label>New Password</label>
@@ -299,7 +379,6 @@
                 <button type="submit" class="btn-submit">Send Code</button>
             </form>
 
-            <!-- Step 2: Code Verification -->
             <form id="code-step" class="step-box">
                 <div class="input-group">
                     <label>Verification Code</label>
@@ -315,13 +394,31 @@
         </div>
     </div>
 
+    <!-- AI Chat Interface Section -->
+    <div class="chat-container" id="chat-section">
+        <div class="chat-header">
+            <h3>✦ AI Assistant</h3>
+            <button class="btn-logout" onclick="logout()">Log Out</button>
+        </div>
+
+        <div class="chat-box" id="chat-messages">
+            <div class="message bot">
+                سڵاو! بەخێرپێیت بۆ AI Chat. چۆن دەتوانم یارمه‌تیت بدم؟
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="پەیامەکەت بنووسە..." onkeypress="handleKeyPress(event)">
+            <button class="btn-send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
     <script>
         function showForm(formType) {
             const signupBox = document.getElementById('signup-box');
             const loginBox = document.getElementById('login-box');
             const forgotBox = document.getElementById('forgot-box');
 
-            // Reset forgot password steps when switching
             document.getElementById('passwords-step').classList.add('active');
             document.getElementById('code-step').classList.remove('active');
 
@@ -329,16 +426,39 @@
             loginBox.classList.remove('active');
             forgotBox.classList.remove('active');
 
-            if (formType === 'login') {
-                loginBox.classList.add('active');
-            } else if (formType === 'signup') {
-                signupBox.classList.add('active');
-            } else if (formType === 'forgot') {
-                forgotBox.classList.add('active');
-            }
+            if (formType === 'login') loginBox.classList.add('active');
+            else if (formType === 'signup') signupBox.classList.add('active');
+            else if (formType === 'forgot') forgotBox.classList.add('active');
         }
 
-        // Handle Forgot Password Flow
+        // Redirect to AI Chat View
+        function openChat() {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('chat-section').style.display = 'flex';
+        }
+
+        function logout() {
+            document.getElementById('chat-section').style.display = 'none';
+            document.getElementById('auth-section').style.display = 'block';
+            showForm('login');
+        }
+
+        // Form Submit Actions
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            openChat();
+        });
+
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            openChat();
+        });
+
+        function loginWithGoogle() {
+            openChat();
+        }
+
+        // Forgot Password Logic
         document.getElementById('passwords-step').addEventListener('submit', function(e) {
             e.preventDefault();
             const newPass = document.getElementById('new-pass').value;
@@ -349,10 +469,8 @@
                 return;
             }
 
-            // Move to Code Input Step
             document.getElementById('passwords-step').classList.remove('active');
             document.getElementById('code-step').classList.add('active');
-            alert("A verification code has been sent to your email!");
         });
 
         document.getElementById('code-step').addEventListener('submit', function(e) {
@@ -361,20 +479,39 @@
             showForm('login');
         });
 
-        function loginWithGoogle() {
-            const clientId = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"; 
-            const redirectUri = window.location.href;
-            const scope = "email profile";
-            const responseType = "token";
+        // Chat UI System
+        function sendMessage() {
+            const inputField = document.getElementById('user-input');
+            const messageText = inputField.value.trim();
 
-            const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${encodeURIComponent(scope)}`;
-            window.location.href = googleAuthUrl;
+            if (messageText === "") return;
+
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Append User Message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.textContent = messageText;
+            chatMessages.appendChild(userMsg);
+
+            inputField.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simulated AI Response
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'message bot';
+                botMsg.textContent = "پەیامەکەت گەیشت! دەتوانیت لێرەوە Gemini API یان هەر APIیەکی تر ببەستیتەوە.";
+                chatMessages.appendChild(botMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 800);
         }
 
-        document.getElementById('signup-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            showForm('login');
-        });
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
     </script>
 
 </body>
