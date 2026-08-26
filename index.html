@@ -1,115 +1,223 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krd Link - Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Auth System</title>
     <style>
-        * { box-sizing: border-box; }
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: 'Vazirmatn', sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            background: linear-gradient(135deg, #1f4068, #162447, #1b1b2f);
         }
 
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            background: #0a0a0a;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 28px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .container {
+            width: 400px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            color: #fff;
         }
 
-        .login-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .form-box {
+            display: none;
+        }
+
+        .form-box.active {
+            display: block;
+        }
+
+        .container h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
             text-align: center;
-            margin-bottom: 10px;
-            color: #ffffff;
+            letter-spacing: 1px;
         }
 
         .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            position: relative;
+            margin-bottom: 20px;
         }
 
         .input-group label {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #d1d5db;
         }
 
         .input-group input {
-            background: #0d0d0d;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 14px 16px;
-            color: #fff;
-            font-family: 'Vazirmatn', sans-serif;
-            font-size: 1rem;
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             outline: none;
-            transition: border-color 0.3s ease;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1em;
+            transition: 0.3s ease;
         }
 
         .input-group input:focus {
-            border-color: rgba(168, 85, 247, 0.6);
+            border-color: #38bdf8;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
         }
 
-        .login-btn {
-            background: linear-gradient(135deg, #8b5cf6, #a855f7);
-            border: none;
-            border-radius: 14px;
-            padding: 14px;
-            color: #fff;
-            font-family: 'Vazirmatn', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
+        .options {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            font-size: 0.85em;
+        }
+
+        .options a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
             margin-top: 10px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 5px 15px rgba(29, 78, 216, 0.4);
         }
 
-        .login-btn:hover {
-            opacity: 0.9;
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(29, 78, 216, 0.6);
+        }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #cbd5e1;
+        }
+
+        .switch-link a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .switch-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <div class="login-title">چوونە ژوورەوە</div>
-        
-        <div class="input-group">
-            <label for="usernameInput">ناوی بەکارهێنەر (Username)</label>
-            <input type="text" id="usernameInput" placeholder="نموونە: Hammmm">
+    <div class="container">
+        <!-- Sign Up Form -->
+        <div class="form-box active" id="signup-box">
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Create a password" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Sign Up</button>
+
+                <div class="switch-link">
+                    Already have an account? <a onclick="showForm('login')">Log In</a>
+                </div>
+            </form>
         </div>
 
-        <button class="login-btn" onclick="loginUser()">چوونە ژوورەوە</button>
+        <!-- Log In Form -->
+        <div class="form-box" id="login-box">
+            <h2>Log In</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="options">
+                    <a href="#">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-submit">Log In</button>
+
+                <div class="switch-link">
+                    Don't have an account? <a onclick="showForm('signup')">Sign Up</a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
-        function loginUser() {
-            const username = document.getElementById('usernameInput').value.trim();
-            if (username !== "") {
-                localStorage.setItem('current_user', username);
-                window.location.href = 'dashboard.html';
+        function showForm(formType) {
+            const signupBox = document.getElementById('signup-box');
+            const loginBox = document.getElementById('login-box');
+
+            if (formType === 'login') {
+                signupBox.classList.remove('active');
+                loginBox.classList.add('active');
             } else {
-                alert('تکایە ناوی بەکارهێنەر بنووسە!');
+                loginBox.classList.remove('active');
+                signupBox.classList.add('active');
             }
         }
+
+        // Redirect Sign Up submission directly to Log In view
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showForm('login');
+        });
     </script>
+
 </body>
 </html>
