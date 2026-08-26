@@ -42,7 +42,7 @@
 
         .container h2 {
             font-size: 2em;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
             letter-spacing: 1px;
         }
@@ -87,6 +87,7 @@
         .options a {
             color: #38bdf8;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .options a:hover {
@@ -115,7 +116,6 @@
             box-shadow: 0 8px 20px rgba(29, 78, 216, 0.6);
         }
 
-        /* Divider Design */
         .divider {
             display: flex;
             align-items: center;
@@ -135,7 +135,6 @@
             padding: 0 10px;
         }
 
-        /* Google Button Style */
         .btn-google {
             width: 100%;
             padding: 12px;
@@ -181,6 +180,14 @@
             text-decoration: underline;
         }
 
+        .step-box {
+            display: none;
+        }
+
+        .step-box.active {
+            display: block;
+        }
+
         @media (max-width: 480px) {
             .container {
                 width: 90%;
@@ -217,7 +224,7 @@
                     <span>OR</span>
                 </div>
 
-                <button type="button" class="btn-google">
+                <button type="button" class="btn-google" onclick="loginWithGoogle()">
                     <svg viewBox="0 0 24 24">
                         <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
                         <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
@@ -248,7 +255,7 @@
                 </div>
 
                 <div class="options">
-                    <a href="#">Forgot Password?</a>
+                    <a onclick="showForm('forgot')">Forgot Password?</a>
                 </div>
 
                 <button type="submit" class="btn-submit">Log In</button>
@@ -257,7 +264,7 @@
                     <span>OR</span>
                 </div>
 
-                <button type="button" class="btn-google">
+                <button type="button" class="btn-google" onclick="loginWithGoogle()">
                     <svg viewBox="0 0 24 24">
                         <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
                         <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
@@ -272,20 +279,96 @@
                 </div>
             </form>
         </div>
+
+        <!-- Forgot Password Form -->
+        <div class="form-box" id="forgot-box">
+            <h2>Reset Password</h2>
+            
+            <!-- Step 1: Passwords Input -->
+            <form id="passwords-step" class="step-box active">
+                <div class="input-group">
+                    <label>New Password</label>
+                    <input type="password" id="new-pass" placeholder="Enter new password" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirm-pass" placeholder="Confirm new password" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Send Code</button>
+            </form>
+
+            <!-- Step 2: Code Verification -->
+            <form id="code-step" class="step-box">
+                <div class="input-group">
+                    <label>Verification Code</label>
+                    <input type="text" maxlength="6" placeholder="Enter 6-digit code" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Change Password</button>
+            </form>
+
+            <div class="switch-link">
+                Remember your password? <a onclick="showForm('login')">Log In</a>
+            </div>
+        </div>
     </div>
 
     <script>
         function showForm(formType) {
             const signupBox = document.getElementById('signup-box');
             const loginBox = document.getElementById('login-box');
+            const forgotBox = document.getElementById('forgot-box');
+
+            // Reset forgot password steps when switching
+            document.getElementById('passwords-step').classList.add('active');
+            document.getElementById('code-step').classList.remove('active');
+
+            signupBox.classList.remove('active');
+            loginBox.classList.remove('active');
+            forgotBox.classList.remove('active');
 
             if (formType === 'login') {
-                signupBox.classList.remove('active');
                 loginBox.classList.add('active');
-            } else {
-                loginBox.classList.remove('active');
+            } else if (formType === 'signup') {
                 signupBox.classList.add('active');
+            } else if (formType === 'forgot') {
+                forgotBox.classList.add('active');
             }
+        }
+
+        // Handle Forgot Password Flow
+        document.getElementById('passwords-step').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newPass = document.getElementById('new-pass').value;
+            const confirmPass = document.getElementById('confirm-pass').value;
+
+            if (newPass !== confirmPass) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // Move to Code Input Step
+            document.getElementById('passwords-step').classList.remove('active');
+            document.getElementById('code-step').classList.add('active');
+            alert("A verification code has been sent to your email!");
+        });
+
+        document.getElementById('code-step').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Password updated successfully!");
+            showForm('login');
+        });
+
+        function loginWithGoogle() {
+            const clientId = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"; 
+            const redirectUri = window.location.href;
+            const scope = "email profile";
+            const responseType = "token";
+
+            const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${encodeURIComponent(scope)}`;
+            window.location.href = googleAuthUrl;
         }
 
         document.getElementById('signup-form').addEventListener('submit', function(e) {
