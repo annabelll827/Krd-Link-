@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auth System</title>
+    <title>Lovable Design - White Theme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -17,26 +18,19 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1f4068, #162447, #1b1b2f);
-            color: #fff;
+            background: #ffffff;
+            color: #0f172a;
             transition: background 0.3s ease;
         }
 
-        body.logged-in {
-            background: #ffffff;
-            color: #000;
-        }
-
-        /* Authentication Styles */
+        /* Auth Styles */
         .auth-container {
             width: 400px;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
+            background: #f8fafc;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
         }
 
         .form-box { display: none; }
@@ -46,11 +40,10 @@
             font-size: 2em;
             margin-bottom: 25px;
             text-align: center;
-            letter-spacing: 1px;
+            color: #0f172a;
         }
 
         .input-group {
-            position: relative;
             margin-bottom: 20px;
         }
 
@@ -58,144 +51,275 @@
             display: block;
             margin-bottom: 8px;
             font-size: 0.9em;
-            color: #d1d5db;
+            color: #475569;
         }
 
         .input-group input {
             width: 100%;
             padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
             outline: none;
             border-radius: 10px;
-            color: #fff;
+            color: #0f172a;
             font-size: 1em;
-            transition: 0.3s ease;
         }
-
-        .input-group input:focus {
-            border-color: #38bdf8;
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
-        }
-
-        .options {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-            font-size: 0.85em;
-        }
-
-        .options a {
-            color: #38bdf8;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .options a:hover { text-decoration: underline; }
 
         .btn-submit {
             width: 100%;
             padding: 12px;
             margin-top: 10px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             border: none;
-            outline: none;
             border-radius: 10px;
             color: #fff;
             font-size: 1em;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s ease;
-            box-shadow: 0 5px 15px rgba(29, 78, 216, 0.4);
         }
-
-        .btn-submit:hover {
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            transform: translateY(-2px);
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 20px 0;
-            color: #9ca3af;
-            font-size: 0.85em;
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .divider span { padding: 0 10px; }
-
-        .btn-google {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 0.95em;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .btn-google:hover { background: rgba(255, 255, 255, 0.15); }
-
-        .btn-google svg { width: 18px; height: 18px; }
 
         .switch-link {
             text-align: center;
             margin-top: 25px;
             font-size: 0.9em;
-            color: #cbd5e1;
+            color: #64748b;
         }
 
         .switch-link a {
-            color: #38bdf8;
+            color: #2563eb;
             text-decoration: none;
-            font-weight: 600;
             cursor: pointer;
         }
 
-        .switch-link a:hover { text-decoration: underline; }
-
-        .step-box { display: none; }
-        .step-box.active { display: block; }
-
-        /* Blank Page Styles */
-        .blank-container {
+        /* Lovable Light Theme Styles */
+        .lovable-container {
             display: none;
             width: 100%;
-            height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
+            min-height: 100vh;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 16px;
         }
 
-        .btn-logout {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: #ef4444;
-            border: none;
-            color: #fff;
-            font-weight: 600;
-            border-radius: 8px;
+        /* Top Header Navigation */
+        .top-nav {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            z-index: 2;
+        }
+
+        .menu-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            font-size: 1.1em;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .btn-logout:hover { background: #dc2626; }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.6em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0f172a;
+        }
+
+        .logo-heart {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #ff4b4b, #ff758c);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
+            transform: rotate(-10deg);
+        }
+
+        /* Badge Pill */
+        .connect-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 6px 16px 6px 8px;
+            border-radius: 30px;
+            font-size: 0.88em;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 30px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            z-index: 2;
+        }
+
+        .icon-stack {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-stack img {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            margin-right: -6px;
+            border: 2px solid #ffffff;
+        }
+
+        /* Main Heading */
+        .hero-title {
+            font-size: 2.1em;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.25;
+            margin-bottom: 35px;
+            max-width: 320px;
+            color: #0f172a;
+            z-index: 2;
+        }
+
+        /* Input Box */
+        .prompt-box {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 18px 20px 14px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            z-index: 2;
+        }
+
+        .prompt-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #0f172a;
+            font-size: 1.05em;
+            margin-bottom: 25px;
+        }
+
+        .prompt-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .prompt-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .left-actions, .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .build-dropdown {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        /* App Store Card */
+        .app-card {
+            width: 100%;
+            max-width: 460px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            z-index: 2;
+        }
+
+        .app-card-text {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #1e293b;
+            padding-left: 8px;
+        }
+
+        .app-store-btn {
+            background: #0f172a;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .app-store-btn i {
+            font-size: 1.4em;
+        }
+
+        .app-store-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.1;
+        }
+
+        .app-store-text span:first-child {
+            font-size: 0.55em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+        }
+
+        .app-store-text span:last-child {
+            font-size: 0.85em;
+            font-weight: 700;
+        }
+
+        /* Light Bottom Glow Background */
+        .glow-bg {
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 380px;
+            background: radial-gradient(circle, rgba(147, 197, 253, 0.6) 0%, rgba(192, 132, 252, 0.5) 35%, rgba(244, 114, 182, 0.5) 70%, rgba(251, 113, 133, 0.6) 100%);
+            filter: blur(70px);
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            pointer-events: none;
+            opacity: 0.7;
+        }
 
         @media (max-width: 480px) {
             .auth-container { width: 90%; padding: 25px; }
@@ -206,187 +330,114 @@
 
     <!-- Auth Container -->
     <div class="auth-container" id="auth-section">
-        <!-- Sign Up Form -->
-        <div class="form-box active" id="signup-box">
-            <h2>Sign Up</h2>
-            <form id="signup-form">
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="Enter your email" required>
-                </div>
-                
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="Create a password" required>
-                </div>
-
-                <button type="submit" class="btn-submit">Sign Up</button>
-
-                <div class="divider"><span>OR</span></div>
-
-                <button type="button" class="btn-google" onclick="loginWithGoogle()">
-                    <svg viewBox="0 0 24 24">
-                        <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
-                        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
-                        <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 14.5s.7 4.8 1.9 7.2l3.7-2.9z"/>
-                        <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
-                    </svg>
-                    Continue with Google
-                </button>
-
-                <div class="switch-link">
-                    Already have an account? <a onclick="showForm('login')">Log In</a>
-                </div>
-            </form>
-        </div>
-
-        <!-- Log In Form -->
-        <div class="form-box" id="login-box">
+        <div class="form-box active" id="login-box">
             <h2>Log In</h2>
             <form id="login-form">
                 <div class="input-group">
                     <label>Email Address</label>
                     <input type="email" placeholder="Enter your email" required>
                 </div>
-                
                 <div class="input-group">
                     <label>Password</label>
                     <input type="password" placeholder="Enter your password" required>
                 </div>
-
-                <div class="options">
-                    <a onclick="showForm('forgot')">Forgot Password?</a>
-                </div>
-
                 <button type="submit" class="btn-submit">Log In</button>
-
-                <div class="divider"><span>OR</span></div>
-
-                <button type="button" class="btn-google" onclick="loginWithGoogle()">
-                    <svg viewBox="0 0 24 24">
-                        <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"/>
-                        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
-                        <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 14.5s.7 4.8 1.9 7.2l3.7-2.9z"/>
-                        <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
-                    </svg>
-                    Continue with Google
-                </button>
-
                 <div class="switch-link">
                     Don't have an account? <a onclick="showForm('signup')">Sign Up</a>
                 </div>
             </form>
         </div>
 
-        <!-- Forgot Password Form -->
-        <div class="form-box" id="forgot-box">
-            <h2>Reset Password</h2>
-            
-            <form id="passwords-step" class="step-box active">
+        <div class="form-box" id="signup-box">
+            <h2>Sign Up</h2>
+            <form id="signup-form">
                 <div class="input-group">
-                    <label>New Password</label>
-                    <input type="password" id="new-pass" placeholder="Enter new password" required>
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter your email" required>
                 </div>
-
                 <div class="input-group">
-                    <label>Confirm Password</label>
-                    <input type="password" id="confirm-pass" placeholder="Confirm new password" required>
+                    <label>Password</label>
+                    <input type="password" placeholder="Create a password" required>
                 </div>
-
-                <button type="submit" class="btn-submit">Send Code</button>
+                <button type="submit" class="btn-submit">Sign Up</button>
+                <div class="switch-link">
+                    Already have an account? <a onclick="showForm('login')">Log In</a>
+                </div>
             </form>
-
-            <form id="code-step" class="step-box">
-                <div class="input-group">
-                    <label>Verification Code</label>
-                    <input type="text" maxlength="6" placeholder="Enter 6-digit code" required>
-                </div>
-
-                <button type="submit" class="btn-submit">Change Password</button>
-            </form>
-
-            <div class="switch-link">
-                Remember your password? <a onclick="showForm('login')">Log In</a>
-            </div>
         </div>
     </div>
 
-    <!-- Blank White Page Section -->
-    <div class="blank-container" id="blank-section">
-        <button class="btn-logout" onclick="logout()">Log Out</button>
+    <!-- Lovable White Page Section -->
+    <div class="lovable-container" id="lovable-section">
+        <div class="top-nav">
+            <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+            <div class="brand-logo">
+                <div class="logo-heart"></div>
+                Lovable
+            </div>
+            <div style="width: 44px;"></div>
+        </div>
+
+        <div class="connect-badge">
+            <div class="icon-stack">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="gmail">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" alt="slack">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Google_Maps_icon_%282020%29.svg" alt="maps">
+            </div>
+            Connect all your tools &rarr;
+        </div>
+
+        <h1 class="hero-title">Let's build something, hoshmand</h1>
+
+        <div class="prompt-box">
+            <input type="text" class="prompt-input" placeholder="Create a presentation about...">
+            <div class="prompt-actions">
+                <div class="left-actions">
+                    <button class="action-btn"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div class="right-actions">
+                    <button class="action-btn build-dropdown">Build <i class="fa-solid fa-chevron-down" style="font-size: 0.7em; margin-left: 2px;"></i></button>
+                    <button class="action-btn"><i class="fa-solid fa-microphone"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <span class="app-card-text">Your best ideas. On the go.</span>
+            <a href="#" class="app-store-btn">
+                <i class="fa-brands fa-apple"></i>
+                <div class="app-store-text">
+                    <span>Download on the</span>
+                    <span>App Store</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="glow-bg"></div>
     </div>
 
     <script>
         function showForm(formType) {
-            const signupBox = document.getElementById('signup-box');
-            const loginBox = document.getElementById('login-box');
-            const forgotBox = document.getElementById('forgot-box');
+            document.getElementById('signup-box').classList.remove('active');
+            document.getElementById('login-box').classList.remove('active');
 
-            document.getElementById('passwords-step').classList.add('active');
-            document.getElementById('code-step').classList.remove('active');
-
-            signupBox.classList.remove('active');
-            loginBox.classList.remove('active');
-            forgotBox.classList.remove('active');
-
-            if (formType === 'login') loginBox.classList.add('active');
-            else if (formType === 'signup') signupBox.classList.add('active');
-            else if (formType === 'forgot') forgotBox.classList.add('active');
+            if (formType === 'login') document.getElementById('login-box').classList.add('active');
+            else if (formType === 'signup') document.getElementById('signup-box').classList.add('active');
         }
 
-        // Redirect to Blank White Page
-        function openBlankPage() {
+        function openLovablePage() {
             document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('blank-section').style.display = 'block';
-            document.body.classList.add('logged-in');
+            document.getElementById('lovable-section').style.display = 'flex';
         }
 
-        function logout() {
-            document.getElementById('blank-section').style.display = 'none';
-            document.getElementById('auth-section').style.display = 'block';
-            document.body.classList.remove('logged-in');
-            showForm('login');
-        }
-
-        // Form Submit Actions
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            openBlankPage();
+            openLovablePage();
         });
 
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            openBlankPage();
-        });
-
-        function loginWithGoogle() {
-            openBlankPage();
-        }
-
-        // Forgot Password Logic
-        document.getElementById('passwords-step').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const newPass = document.getElementById('new-pass').value;
-            const confirmPass = document.getElementById('confirm-pass').value;
-
-            if (newPass !== confirmPass) {
-                alert("Passwords do not match!");
-                return;
-            }
-
-            document.getElementById('passwords-step').classList.remove('active');
-            document.getElementById('code-step').classList.add('active');
-        });
-
-        document.getElementById('code-step').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert("Password updated successfully!");
-            showForm('login');
+            openLovablePage();
         });
     </script>
 
